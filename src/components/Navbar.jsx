@@ -39,7 +39,7 @@ const Navbar = () => {
       <div className="flex items-center justify-between w-full">
         <a href="#home" className="text-xl md:text-2xl font-bold tracking-tight flex items-center gap-1 group truncate">
           <span className="text-blue-500 group-hover:scale-110 transition-transform">&lt;</span>
-          Abraham <span className="text-purple-500 group-hover:scale-110 transition-transform">/&gt;</span>
+          Sona Elizabeth Abraham <span className="text-purple-500 group-hover:scale-110 transition-transform">/&gt;</span>
         </a>
 
         {/* Desktop Nav */}
