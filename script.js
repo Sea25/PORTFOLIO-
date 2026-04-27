@@ -1,124 +1,139 @@
 // =========================================
-// CUSTOM CURSOR
+// CUSTOM CURSOR (only on desktop)
 // =========================================
-const cursor = document.getElementById('cursor');
-const ring   = document.getElementById('cursorRing');
+const isTouch = window.matchMedia('(pointer: coarse)').matches;
 
-let mouseX = 0, mouseY = 0;
-let ringX  = 0, ringY  = 0;
+if (!isTouch) {
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
 
-// Move the dot instantly
-document.addEventListener('mousemove', (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-  cursor.style.left = mouseX - 5 + 'px';
-  cursor.style.top  = mouseY - 5 + 'px';
-});
+  let mouseX = 0, mouseY = 0;
+  let ringX = 0, ringY = 0;
+  let ticking = false;
 
-// Smoothly lag the ring behind
-function animateRing() {
-  ringX += (mouseX - ringX) * 0.12;
-  ringY += (mouseY - ringY) * 0.12;
-  ring.style.left = ringX - 18 + 'px';
-  ring.style.top  = ringY - 18 + 'px';
-  requestAnimationFrame(animateRing);
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        cursor.style.left = mouseX - 5 + 'px';
+        cursor.style.top = mouseY - 5 + 'px';
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  function animateRing() {
+    ringX += (mouseX - ringX) * 0.12;
+    ringY += (mouseY - ringY) * 0.12;
+    ring.style.left = ringX - 18 + 'px';
+    ring.style.top = ringY - 18 + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  const interactiveEls = document.querySelectorAll('a, button, .skill-tag, .about-card, .project-card');
+  interactiveEls.forEach((el) => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'scale(2)';
+      ring.style.transform = 'scale(1.5)';
+      ring.style.opacity = '0.3';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'scale(1)';
+      ring.style.transform = 'scale(1)';
+      ring.style.opacity = '0.5';
+    });
+  });
 }
-animateRing();
-
-// Scale cursor on hover over interactive elements
-const interactiveEls = document.querySelectorAll(
-  'a, button, .skill-tag, .about-card, .project-card'
-);
-interactiveEls.forEach((el) => {
-  el.addEventListener('mouseenter', () => {
-    cursor.style.transform = 'scale(2)';
-    ring.style.transform   = 'scale(1.5)';
-    ring.style.opacity     = '0.3';
-  });
-  el.addEventListener('mouseleave', () => {
-    cursor.style.transform = 'scale(1)';
-    ring.style.transform   = 'scale(1)';
-    ring.style.opacity     = '0.5';
-  });
-});
-
 
 // =========================================
-// SCROLL REVEAL
+// SCROLL REVEAL (improved performance)
 // =========================================
-const revealEls = document.querySelectorAll(
-  '.project-card, .about-card, .exp-item, .skill-category'
-);
+const revealEls = document.querySelectorAll('.project-card, .about-card, .exp-item, .skill-category');
 
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) {
-      entry.target.style.opacity   = '1';
+      entry.target.style.opacity = '1';
       entry.target.style.transform = 'translateY(0)';
+      revealObserver.unobserve(entry.target); // Stop observing after reveal
     }
   });
-}, { threshold: 0.1 });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
 revealEls.forEach((el) => {
-  el.style.opacity   = '0';
+  el.style.opacity = '0';
   el.style.transform = 'translateY(24px)';
-  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+  el.style.transition = 'opacity 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.5s cubic-bezier(0.2, 0.9, 0.4, 1.1)';
   revealObserver.observe(el);
 });
 
-
 // =========================================
-// ACTIVE NAV HIGHLIGHT ON SCROLL
+// ACTIVE NAV HIGHLIGHT (fixed)
 // =========================================
 const sections = document.querySelectorAll('section[id]');
-const navLinks  = document.querySelectorAll('.nav-links a');
+const navLinks = document.querySelectorAll('.nav-links a');
 
-window.addEventListener('scroll', () => {
+function updateActiveNav() {
   let current = '';
+  const scrollPos = window.scrollY + 150;
 
   sections.forEach((section) => {
-    if (window.scrollY >= section.offsetTop - 120) {
+    const sectionTop = section.offsetTop;
+    const sectionBottom = sectionTop + section.offsetHeight;
+    
+    if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
       current = section.id;
     }
   });
 
   navLinks.forEach((link) => {
-    const isActive = link.getAttribute('href') === '#' + current;
-    link.style.color = isActive ? 'var(--accent)' : '';
+    const href = link.getAttribute('href').substring(1);
+    if (href === current) {
+      link.style.color = 'var(--accent)';
+    } else {
+      link.style.color = '';
+    }
+  });
+}
+
+window.addEventListener('scroll', updateActiveNav);
+window.addEventListener('load', updateActiveNav);
+
+
+
+// =========================================
+// RESUME DOWNLOAD HANDLER
+// =========================================
+const resumeLink = document.getElementById('resumeLink');
+if (resumeLink) {
+  resumeLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    alert('📄 Resume PDF coming soon! Meanwhile, feel free to connect on LinkedIn.');
+    window.open('https://www.linkedin.com/in/sonabr016/', '_blank');
+  });
+}
+
+// =========================================
+// SMOOTH SCROLL FOR NAV LINKS
+// =========================================
+document.querySelectorAll('.nav-links a, .back-top').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const targetId = this.getAttribute('href');
+    if (targetId && targetId !== '#') {
+      e.preventDefault();
+      const target = document.querySelector(targetId);
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
   });
 });
 
-
 // =========================================
-// CONTACT FORM (basic front-end handler)
-// Replace this with your actual backend / EmailJS / Formspree
+// FIX TYPO IN POLLYTICS DESCRIPTION
 // =========================================
-const sendBtn = document.querySelector('.contact-form .btn-primary');
-
-if (sendBtn) {
-  sendBtn.addEventListener('click', () => {
-    const name    = document.querySelector('.contact-form input[type="text"]').value.trim();
-    const email   = document.querySelector('.contact-form input[type="email"]').value.trim();
-    const message = document.querySelector('.contact-form textarea').value.trim();
-
-    if (!name || !email || !message) {
-      alert('Please fill in all fields.');
-      return;
-    }
-
-    // TODO: wire up to EmailJS / Formspree / your own API
-    // Example with Formspree:
-    // fetch('https://formspree.io/f/YOUR_FORM_ID', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({ name, email, message })
-    // });
-
-    sendBtn.textContent = 'Sent ✓';
-    sendBtn.style.background = '#00c9a0';
-    setTimeout(() => {
-      sendBtn.textContent = 'Send Message →';
-      sendBtn.style.background = '';
-    }, 3000);
-  });
-}
+// (Fix the HTML directly - find and replace "reated" with "Created")
