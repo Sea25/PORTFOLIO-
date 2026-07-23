@@ -3,302 +3,427 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SONA — Portfolio</title>
+  <title>Sona Elizabeth Abraham — Portfolio</title>
+  <meta name="description" content="Portfolio of Sona Elizabeth Abraham - Full Stack Developer and System Administration Enthusiast.">
+  
+  <!-- Google Fonts: Outfit (Sans), Libre Baskerville (Serif), Space Mono (Monospace) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- CURSOR -->
+  <!-- Custom Cursor Elements -->
   <div class="cursor" id="cursor"></div>
   <div class="cursor-ring" id="cursorRing"></div>
 
-  <!-- GRID BG -->
-  <div class="grid-bg"></div>
+  <!-- Design Textures -->
+  <div class="texture-overlay"></div>
+  <div class="grid-overlay"></div>
 
-  <!-- ====== NAV ====== -->
-  <nav>
-    <div class="nav-logo"><span>// </span>portfolio</div>
-    <div class="nav-links">
-      <a href="#about">About</a>
-      <a href="#skills">Skills</a>
-      <a href="#projects">Projects</a>
-      <a href="#experience">Experience</a>
-      <a href="#contact">Contact</a>
+  <!-- ====== FLOATING NAVIGATION ====== -->
+  <nav id="navbar">
+    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=Sona" class="nav-avatar" alt="Avatar">
+    <a href="#" class="nav-logo">SEA<span>.</span></a>
+    
+    <div class="nav-links" id="navLinks">
+      <a href="#about" class="nav-item">About</a>
+      <a href="#work" class="nav-item">Work</a>
+      <a href="#skills" class="nav-item">Skills</a>
+      <a href="#contact" class="nav-item">Contact</a>
     </div>
+
+    <a href="#contact" class="nav-cta" aria-label="Contact">↗</a>
   </nav>
 
-  <!-- ====== HERO ====== -->
-  <section class="hero" id="home">
-    <div class="hero-left">
-      <div class="hero-tag fade-in">Available for internships</div>
-      <h1 class="fade-in">
-        Sona Elizabeth<br><span class="name-accent">Abraham</span>
-      </h1>
-      <div class="hero-role fade-in">
-        <span class="highlight">Full Stack Developer</span> System Administration Enthusiast<br>
-        BTech IT · SOE-CUSAT 
-      </div>
-      <p class="hero-desc fade-in">
-        An Information Technology student passionate about cloud computing, system administration, networking, and infrastructure management. Experienced in Linux, virtualisation, IT support and web development, with a strong interest in designing reliable and scalable systems.
-      </p>
-      <div class="hero-cta fade-in">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="resume.pdf" class="btn btn-ghost" download>Download CV</a>
+  <!-- ====== HERO SKY SECTION ====== -->
+  <header class="hero-sky" id="home">
+    <div class="cloud-container">
+      <div class="cloud cloud-1"></div>
+      <div class="cloud cloud-2"></div>
+      <div class="cloud cloud-3"></div>
+    </div>
+
+    <!-- Now Playing Widget -->
+    <div class="now-playing">
+      <img src="https://api.dicebear.com/7.x/identicon/svg?seed=nowplaying" class="now-playing-gif" alt="Music icon">
+      <div class="now-playing-info">
+        <span>Now Playing</span>
+        <span>Tinkering servers.sh</span>
       </div>
     </div>
-  </section>
-
-    <!-- ====== ABOUT ====== -->
-  <section id="about">
-    <div class="section-wrap">
-      <div class="section-header">
-        <span class="section-num">01</span>
-        <h2 class="section-title">About</h2>
-        <div class="section-line"></div>
+    
+    <!-- Floating Personal ID Card -->
+    <div class="id-card">
+      <div class="id-card-top">
+        <span>NO. 80582026</span>
+        <span>ID CARD</span>
       </div>
       
-      <div class="about-new">
-        <!-- Quote / Tagline -->
-        <div class="about-quote">
-          <span class="quote-mark">"</span>
-          The foundation of every great building is unseen,  <span class="quote-accent">but it's what keeps it standing tall."</span>
-          <span class="quote-mark">"</span>
+      <div class="id-card-body">
+        <div class="id-card-photo">
+          <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=SonaElizabeth" class="id-card-photo-img" alt="Sona Elizabeth Abraham">
         </div>
-
-        <!-- Main Bio Grid -->
-        <div class="about-new-grid">
-          <div class="about-bio">
-
-    <p>
-        Hey, I'm <strong>Sona Elizabeth Abraham</strong>, a <strong>BTech Information Technology student at CUSAT</strong> with a growing passion for technology and continuous learning.
-    </p>
-
-    <p>
-        I am particularly interested in <strong>System Administration</strong>, <strong>Cloud Computing</strong>, and <strong>Web Development</strong>. I enjoy learning how IT infrastructure, networks, servers, and cloud platforms work together to power modern applications and services.
-    </p>
-</div>
-
-          <div class="about-highlights">
-            <div class="highlight-card">
-              <div class="highlight-icon">⚡</div>
-              <h4>What drives me</h4>
-              <p>Building reliable systems that help people wrk efficiently and securely.</p>
-            </div>
-            <div class="highlight-card">
-              <div class="highlight-icon">🎓</div>
-              <h4>Current focus</h4>
-              <p>Cloud computing, system administration, Linux and virtualisation.</p>
-            </div>
-            <div class="highlight-card">
-              <div class="highlight-icon">✨</div>
-              <h4>Fun fact</h4>
-              <p>I enjoy learning how servers, networks and cloud platforms work behind the scenes.</p>
-            </div>
+        
+        <div class="id-card-info">
+          <div class="id-field">
+            <span class="id-label">Name</span>
+            <span class="id-val id-val-name">Sona Elizabeth Abraham</span>
+          </div>
+          <div class="id-field">
+            <span class="id-label">Current Title</span>
+            <span class="id-val">Full Stack Developer</span>
+          </div>
+          <div class="id-field">
+            <span class="id-label">Branch</span>
+            <span class="id-val">Information Technology</span>
+          </div>
+          <div class="id-field">
+            <span class="id-label">College</span>
+            <span class="id-val">CUSAT</span>
           </div>
         </div>
+      </div>
+      
+      <div class="id-card-disclaimer">
+        "An developer who believes every project is a chance to learn, create, and make a difference."
+      </div>
+    </div>
 
-        
+    <div class="scallop-divider"></div>
+  </header>
+
+  <!-- ====== INTRO/RECEIPT SECTION (YELLOW) ====== -->
+  <section class="yellow-section" id="about">
+    <div class="yellow-grid">
+      <div class="intro-content">
+        <h2>
+          I'm a <span>Product-focused</span> 👀<br>
+          Full Stack Developer
+        </h2>
+        <p class="intro-desc">
+          Refining my craft, exploring networks, and building scalable, user-centered solutions with automated workflows.
+        </p>
+        <a href="#work" class="intro-cta">
+          See my work <span class="intro-cta-arrow">↗</span>
+        </a>
+      </div>
+
+      <!-- Store Receipt -->
+      <div class="receipt">
+        <div class="receipt-title">SONA STORE</div>
+        <div class="receipt-subtitle">IT INFRA & CODE SERVICES</div>
+        <div class="receipt-divider"></div>
+        <div class="receipt-item">
+          <span>01 BTECH IT DEGREE (CUSAT)</span>
+          <span>$100.00</span>
+        </div>
+        <div class="receipt-item">
+          <span>02 PYTHON TRADING BOT</span>
+          <span>$45.00</span>
+        </div>
+        <div class="receipt-item">
+          <span>03 FULL STACK GOLF PORTAL</span>
+          <span>$75.00</span>
+        </div>
+        <div class="receipt-item">
+          <span>04 KERALA POLLYTICS STREAMLIT</span>
+          <span>$30.00</span>
+        </div>
+        <div class="receipt-item">
+          <span>05 LINUX INFRA LAB</span>
+          <span>$50.00</span>
+        </div>
+        <div class="receipt-divider"></div>
+        <div class="receipt-total">
+          <span>TOTAL COMPLETED</span>
+          <span>$300.00</span>
+        </div>
+        <div class="receipt-barcode"></div>
+        <div class="receipt-barcode-num">2026 0724 0160</div>
       </div>
     </div>
   </section>
 
-  <!-- ====== SKILLS ====== -->
-  <section id="skills" class="alt-section">
-    <div class="section-wrap">
-      <div class="section-header">
-        <span class="section-num">02</span>
-        <h2 class="section-title">Skills</h2>
-        <div class="section-line"></div>
+  <!-- ====== CODE STORIES (FLOOPY DISKS ROW) ====== -->
+  <section class="grid-section" id="work">
+    <div class="grid-section-header">
+      <h2>Code Stories</h2>
+      <p>Filed under: Things I'm Proud Of.</p>
+    </div>
+
+    <div class="floppy-row">
+      <!-- Floppy 1 (Orange) -->
+      <div class="floppy floppy-orange">
+        <div class="floppy-slider"></div>
+        <div class="floppy-notch"></div>
+        <div class="floppy-label">
+          <div class="floppy-label-title">Binance Trading Bot</div>
+          <div class="floppy-label-desc">Python-based CLI bot utilizing raw API calls, secure signing, and automation logic.</div>
+          <div class="floppy-links">
+            <a href="https://github.com/Sea25/Trading-Bot" class="floppy-link" target="_blank">Code ↗</a>
+            <a href="https://trading-bot-7ea4.onrender.com/" class="floppy-link" target="_blank">Demo ↗</a>
+          </div>
+        </div>
       </div>
-      <div class="skills-grid">
-        <div class="skill-category">
-          <div class="skill-cat-title">Frontend</div>
-          <div class="skill-tags">
-            <span class="skill-tag">React.js</span>
-            <span class="skill-tag">HTML5</span>
-            <span class="skill-tag">CSS3</span>
+
+      <!-- Floppy 2 (Purple) -->
+      <div class="floppy floppy-purple">
+        <div class="floppy-slider"></div>
+        <div class="floppy-notch"></div>
+        <div class="floppy-label">
+          <div class="floppy-label-title">Golf Charity Portal</div>
+          <div class="floppy-label-desc">Full-stack platform integrating Stripe cycles, dashboard analytics, and billing hooks.</div>
+          <div class="floppy-links">
+            <a href="https://github.com/Sea25/Golf-Charity-Subscription-Platform" class="floppy-link" target="_blank">Code ↗</a>
+            <a href="https://golf-charity-subscription-platform-gules.vercel.app/" class="floppy-link" target="_blank">Demo ↗</a>
           </div>
         </div>
-        <div class="skill-category">
-          <div class="skill-cat-title">Backend</div>
-          <div class="skill-tags">
-            <span class="skill-tag">Node.js</span>
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">REST APIs</span>
+      </div>
+
+      <!-- Floppy 3 (Green) -->
+      <div class="floppy floppy-green">
+        <div class="floppy-slider"></div>
+        <div class="floppy-notch"></div>
+        <div class="floppy-label">
+          <div class="floppy-label-title">CareerLink Hub</div>
+          <div class="floppy-label-desc">AI preparedness portal evaluating resume gaps and mapping career preparatory nodes.</div>
+          <div class="floppy-links">
+            <a href="https://github.com/Sea25/Career-Link-" class="floppy-link" target="_blank">Code ↗</a>
+            <a href="https://career-link-mauve.vercel.app" class="floppy-link" target="_blank">Demo ↗</a>
           </div>
         </div>
+      </div>
+
+      <!-- Floppy 4 (Blue) -->
+      <div class="floppy floppy-blue">
+        <div class="floppy-slider"></div>
+        <div class="floppy-notch"></div>
+        <div class="floppy-label">
+          <div class="floppy-label-title">Pollytics Analytics</div>
+          <div class="floppy-label-desc">Election visualization portal with booth metrics and natural-language query matching.</div>
+          <div class="floppy-links">
+            <a href="https://github.com/Sea25/Pollytics" class="floppy-link" target="_blank">Code ↗</a>
+            <a href="https://pollytics-ezzwpsby9lapeqyx9kaw6x.streamlit.app/" class="floppy-link" target="_blank">Demo ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== LOGIC MARQUEE ====== -->
+  <div class="bold-marquee">
+    <div class="bold-marquee-content">
+      <span>Design backed by logic</span>
+      <span>Infrastructure built to scale</span>
+      <span>Linux & Cloud enthusiast</span>
+      <span>Design backed by logic</span>
+      <span>Infrastructure built to scale</span>
+      <span>Linux & Cloud enthusiast</span>
+    </div>
+  </div>
+
+  <!-- ====== WHAT I BRING TO THE TABLE (PLATES) ====== -->
+  <section class="plates-section" id="skills">
+    <div class="grid-section-header">
+      <h2>What I bring to the <em>table</em>?</h2>
+      <p>A blend of development skills, network design, and reliable automation.</p>
+    </div>
+
+    <div class="plates-grid">
+      <!-- Plate 1 -->
+      <div class="plate-container">
+        <div class="fork"></div>
+        <div class="plate">
+          <div class="plate-inner">
+            <div class="plate-title">Backend</div>
+            <div class="plate-tags">Node.js, Express, Python, REST APIs, API Design</div>
+          </div>
+        </div>
+        <div class="spoon"></div>
+      </div>
+
+      <!-- Plate 2 -->
+      <div class="plate-container">
+        <div class="fork"></div>
+        <div class="plate">
+          <div class="plate-inner">
+            <div class="plate-title">Systems</div>
+            <div class="plate-tags">Linux, Windows Admin, VMware, Active Directory</div>
+          </div>
+        </div>
+        <div class="spoon"></div>
+      </div>
+
+      <!-- Plate 3 -->
+      <div class="plate-container">
+        <div class="fork"></div>
+        <div class="plate">
+          <div class="plate-inner">
+            <div class="plate-title">Cloud</div>
+            <div class="plate-tags">Supabase, Firebase, SQL, Docker, Deployments</div>
+          </div>
+        </div>
+        <div class="spoon"></div>
+      </div>
+
+      <!-- Plate 4 -->
+      <div class="plate-container">
+        <div class="fork"></div>
+        <div class="plate">
+          <div class="plate-inner">
+            <div class="plate-title">DevOps</div>
+            <div class="plate-tags">Git/GitHub, Bash Scripts, VS Code, Streamlit</div>
+          </div>
+        </div>
+        <div class="spoon"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== TOOLS IN MY BAG ====== -->
+  <section class="bag-section">
+    <div class="bag-grid">
+      <div class="intro-content">
+        <h2>
+          What <span>Tools</span><br>
+          are in my Bag?
+        </h2>
+        <p class="intro-desc">
+          Leveraging a selected suite of tools, systems, and languages to create scalable and robust software infrastructures.
+        </p>
+      </div>
+
+      <div class="bag-visual">
+        <div class="shopping-bag">
+          <div class="shopping-bag-handle"></div>
+        </div>
+        <div class="floating-tool tool-1">Node.js</div>
+        <div class="floating-tool tool-2">Python</div>
+        <div class="floating-tool tool-3">VMware</div>
+        <div class="floating-tool tool-4">Docker</div>
+        <div class="floating-tool tool-5">Linux</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CURIOSITY MARQUEE ====== -->
+  <div class="bold-marquee" style="border-top: 2px solid var(--text-dark); background: var(--pink-grid-bg);">
+    <div class="bold-marquee-content">
+      <span>Fuelled by curiosity</span>
+      <span>Fuelled by curiosity</span>
+      <span>Fuelled by curiosity</span>
+      <span>Fuelled by curiosity</span>
+    </div>
+  </div>
+
+  <!-- ====== GAME SECTION ====== -->
+  <section class="game-section">
+    <div class="game-container">
+      <h3 class="game-box-title">Before you leave... Fancy a game? 🎮</h3>
+      <p class="game-box-desc">Find the hidden 6px pixel dot. Click it before the timer runs out!</p>
+      
+      <div class="pixel-canvas" id="pixelCanvas">
+        <div class="pixel-target" id="pixelTarget"></div>
+      </div>
+      
+      <button class="game-btn" id="startGame">Let's go →</button>
+      
+      <div class="game-score-board">
+        <span>Score: <strong id="scoreVal">0</strong></span> | 
+        <span>Time: <strong id="timerVal">10</strong>s</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== CONTACT & ROTARY PHONE SECTION ====== -->
+  <section class="contact-section" id="contact">
+    <div class="scallop-divider" style="top: 0; bottom: auto; transform: rotate(180deg); background-image: radial-gradient(circle at 15px -10px, transparent 15px, var(--pink-grid-bg) 16px);"></div>
     
-        <div class="skill-category">
-          <div class="skill-cat-title">Database & Cloud</div>
-          <div class="skill-tags">
-            <span class="skill-tag">SupaBase</span>
-            <span class="skill-tag">Firebase</span>
+    <div class="contact-grid">
+      <div class="phone-wrapper">
+        <div class="rotary-phone">
+          <div class="rotary-dial" id="rotaryDial">
+            <div class="rotary-hole hole-0"></div>
+            <div class="rotary-hole hole-1"></div>
+            <div class="rotary-hole hole-2"></div>
+            <div class="rotary-hole hole-3"></div>
+            <div class="rotary-hole hole-4"></div>
+            <div class="rotary-hole hole-5"></div>
+            <div class="rotary-hole hole-6"></div>
+            <div class="rotary-hole hole-7"></div>
+            <div class="rotary-hole hole-8"></div>
+            <div class="rotary-hole hole-9"></div>
           </div>
-        </div>
-        <div class="skill-category">
-          <div class="skill-cat-title">Tools & DevOps</div>
-          <div class="skill-tags">
-            <span class="skill-tag">Git / GitHub</span>
-            <span class="skill-tag">VS Code</span>
-          </div>
-        </div>
-        <div class="skill-category">
-          <div class="skill-cat-title">Languages</div>
-          <div class="skill-tags">
-            <span class="skill-tag">JavaScript</span>
-            <span class="skill-tag">Python</span>
-            <span class="skill-tag">C</span>
-            <span class="skill-tag">SQL</span>
-            <span class="skill-tag">Bash</span>
+          <div class="rotary-center">
+            DIAL<br>SONA
           </div>
         </div>
       </div>
-    </div>
-  </section>
 
-  <!-- ====== PROJECTS ====== -->
-  <section id="projects">
-    <div class="section-wrap">
-      <div class="section-header">
-        <span class="section-num">03</span>
-        <h2 class="section-title">Projects</h2>
-        <div class="section-line"></div>
-      </div>
-      <div class="projects-grid">
-
-        <div class="project-card featured">
-          <div class="project-header">
-            <span class="project-icon">🧠</span>
-            <span class="project-badge badge-featured">Featured</span>
-          </div>
-          <div class="project-name">Trading Bot — Binance Futures Testnet</div>
-          <div class="project-desc">Developed a Python-based CLI trading bot for Binance Futures Testnet using raw REST API calls for MARKET, LIMIT, and STOP_MARKET orders. Implemented secure API authentication, request signing, structured logging, and modular architecture for scalable automated trading simulation.</div>
+      <div class="intro-content">
+        <h2>Let's Talk</h2>
+        <p class="intro-desc">Got an internship offer, a server issue, or an idea? Let's turn it into something intentional.</p>
         
-          <div class="project-links">
-            <a href="https://github.com/Sea25/Trading-Bot" class="project-link">GitHub</a>
-            <a href="https://trading-bot-7ea4.onrender.com/" class="project-link">Live Demo</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-header">
-            <span class="project-icon">🌐</span>
-            <span class="project-badge badge-web">(2)</span>
-          </div>
-          <div class="project-name">Golf-Charity-Subscription-Platform</div>
-          <div class="project-desc">Built a full-stack subscription platform where users participate in monthly golf lottery draws while allocating part of their subscription fee to registered charities. Integrated authentication, score tracking, Stripe payments, subscriptions, and automated prize distribution.</div>
-          <div class="project-links">
-            <a href="https://github.com/Sea25/Golf-Charity-Subscription-Platform" class="project-link">GitHub</a>
-            <a href="https://golf-charity-subscription-platform-gules.vercel.app/" class="project-link">Live</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-header">
-            <span class="project-icon">📊</span>
-            <span class="project-badge badge-ai">(3)</span>
-          </div>
-          <div class="project-name">CareerLink</div>
-          <div class="project-desc">CareerLink is a scalable career intelligence platform that helps students prepare for internships and jobs through skill gap analysis, ATS-based resume evaluation, and interactive career path visualization.</div>
-          <div class="project-links">
-            <a href="https://github.com/Sea25/Career-Link-" class="project-link">GitHub</a>
-            <a href="https://career-link-mauve.vercel.app" class="project-link">Live</a>
-          </div>
-        </div>
-
-        <div class="project-card">
-          <div class="project-header">
-            <span class="project-icon">🔧</span>
-            <span class="project-badge badge-tool">(4)</span>
-          </div>
-          <div class="project-name">POLLYTICS — Kerala Election Analytics Portal</div>
-          <div class="project-desc">Created an interactive election analytics platform for Kerala with constituency-wise results, booth statistics, candidate performance, and vote trend analysis. Developed an AI chatbot using regex and fuzzy matching for instant natural language election queries.</div>
-          
-          <div class="project-links">
-            <a href="https://github.com/Sea25/Pollytics" class="project-link">GitHub</a>
-            <a href="https://pollytics-ezzwpsby9lapeqyx9kaw6x.streamlit.app/" class="project-link">Live</a>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ====== EXPERIENCE ====== -->
-  <section id="experience" class="alt-section">
-    <div class="section-wrap">
-      <div class="section-header">
-        <span class="section-num">04</span>
-        <h2 class="section-title">Experience</h2>
-        <div class="section-line"></div>
-      </div>
-      <div class="exp-timeline">
-
-        <div class="exp-item">
-          <div class="exp-date">Jun 2025 - Jul 2025</div>
-          <div class="exp-content">
-            <div class="exp-title">MATLAB - Summer Internship</div>
-            <div class="exp-org">MathWorks · Online</div>
-            <ul class="exp-desc">
-              <li>Learned practical use of MATLAB software for engineering and data-related tasks.</li>
-              <li>Supported project development and testing during the internship period.</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="exp-item">
-          <div class="exp-date">2024 — Present</div>
-          <div class="exp-content">
-            <div class="exp-title">Frontend Web Developer</div>
-            <div class="exp-org">CODTECH IT SOLUTIONS PVT LTD</div>
-            <ul class="exp-desc">
-              <li>Built interactive frontend components using modern web technologies.</li>
-              <li>Optimized website layout and responsiveness for different devices and browsers.</li>
-            </ul>
-          </div>
+        <div class="stamps-row">
+          <a href="mailto:sonaabraham016@gmail.com" class="stamp stamp-blue">
+            <span class="stamp-icon">✉</span>
+            <span class="stamp-lbl">Email</span>
+          </a>
+          <a href="https://www.linkedin.com/in/sonabr016/" class="stamp stamp-pink" target="_blank">
+            <span class="stamp-icon">in</span>
+            <span class="stamp-lbl">LinkedIn</span>
+          </a>
+          <a href="https://github.com/Sea25" class="stamp stamp-black" target="_blank">
+            <span class="stamp-icon">⌥</span>
+            <span class="stamp-lbl">GitHub</span>
+          </a>
+          <a href="#" class="stamp stamp-orange" id="resumeLink">
+            <span class="stamp-icon">↓</span>
+            <span class="stamp-lbl">CV</span>
+          </a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ====== CONTACT ====== -->
-    <!-- ====== CONTACT ====== -->
-  <section id="contact" class="alt-section">
-    <div class="section-wrap">
-      <div class="section-header">
-        <span class="section-num">05</span>
-        <h2 class="section-title">Contact</h2>
-        <div class="section-line"></div>
+  <!-- ====== TEAR-OFF FLYER SECTION ====== -->
+  <section class="flyer-section">
+    <div class="tear-flyer">
+      <div class="flyer-head">
+        <h3 class="flyer-title">Take what you need</h3>
+        <p class="flyer-desc">Hover and tear off a strip to reveal a positive note or task assistant tip!</p>
       </div>
-      <div class="contact-grid-single">
-        <div class="contact-left">
-          <h3>Let's Build<br><span class="accent">Something.</span></h3>
-          <p>Whether it's an internship, a collab, or just a good tech conversation — my inbox is always open.</p>
-          <div class="contact-links">
-            <a href="mailto:sonaabraham016@gmail.com" class="contact-link">
-              <span class="contact-link-icon">✉</span> sonaabraham016@gmail.com
-            </a>
-            <a href="https://www.linkedin.com/in/sonabr016/" class="contact-link" target="_blank">
-              <span class="contact-link-icon">in</span> linkedin.com/in/sonabr016/
-            </a>
-            <a href="https://github.com/Sea25" class="contact-link" target="_blank">
-              <span class="contact-link-icon">⌥</span> github.com/Sea25
-            </a>
-            <a href="#" class="contact-link" id="resumeLink">
-              <span class="contact-link-icon">↓</span> Download Resume (PDF)
-            </a>
-          </div>
-        </div>
+      <div class="flyer-tabs" id="flyerTabs">
+        <div class="flyer-tab" data-msg="A warm hug: You're doing absolutely amazing today! Keep learning and growing."><span class="flyer-tab-text">A warm hug</span></div>
+        <div class="flyer-tab" data-msg="Self love note: Be proud of how far you have come. Every line of code is progress."><span class="flyer-tab-text">self love note</span></div>
+        <div class="flyer-tab" data-msg="A deep breath: Inhale slow... hold it... exhale slow. Let go of compiling stress."><span class="flyer-tab-text">A deep breath</span></div>
+        <div class="flyer-tab" data-msg="A creative spark: Draw wireframes on paper first before writing complex layouts."><span class="flyer-tab-text">A creative spark</span></div>
+        <div class="flyer-tab" data-msg="A quick stretch: Stand up, lock your fingers, and stretch your arms overhead!"><span class="flyer-tab-text">A quick stretch</span></div>
+        <div class="flyer-tab" data-msg="A brain teaser: What has keys but can't open locks? A keyboard!"><span class="flyer-tab-text">A brain teaser</span></div>
+        <div class="flyer-tab" data-msg="A tiny break: Hydration check! Stand up and get a fresh glass of water."><span class="flyer-tab-text">A tiny break</span></div>
+        <div class="flyer-tab" data-msg="A small win: You successfully compiled and ran this redesign today!"><span class="flyer-tab-text">A small win</span></div>
       </div>
     </div>
   </section>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastBox">
+    Flyer content goes here!
+  </div>
 
   <!-- ====== FOOTER ====== -->
   <footer>
-    <div class="footer-text">Designed & built by <span>Sona Elizabeth Abraham</span></div>
-    <a href="#home" class="back-top">↑ Back to top</a>
+    <div>
+      <div class="footer-logo">Voxo<span>.</span></div>
+      <p class="footer-copy" style="margin-top: 0.5rem;">Designing with intention</p>
+    </div>
+    <div style="text-align: right;">
+      <p class="footer-copy">© 2026 Designed & Built by Sona Elizabeth Abraham</p>
+      <a href="#" class="back-to-top" style="margin-top: 0.5rem; display: block;">Back to top ↑</a>
+    </div>
   </footer>
 
   <script src="script.js"></script>
