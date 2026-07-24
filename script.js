@@ -69,11 +69,9 @@ if (!isTouch) {
 // =========================================
 const resumeLink = document.getElementById('resumeLink');
 if (resumeLink) {
-  resumeLink.addEventListener('click', (e) => {
-    e.preventDefault();
-    alert('📄 Resume PDF is coming soon! Meanwhile, feel free to visit my LinkedIn profile.');
-    window.open('https://www.linkedin.com/in/sonabr016/', '_blank');
-  });
+  resumeLink.setAttribute('target', '_blank');
+  // No click handler needed — the href="MEDIAS/resume.pdf" on the tag
+  // handles opening the PDF in a new tab on its own.
 }
 
 // =========================================
