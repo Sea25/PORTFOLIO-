@@ -457,7 +457,6 @@ if (pixelTarget) {
 
     const pts = combo;
     score += pts;
-    timeLeft = Math.min(15, timeLeft + 0.5);
 
     if (scoreEl) scoreEl.textContent = score;
     if (timerEl) timerEl.textContent = Math.ceil(timeLeft);
