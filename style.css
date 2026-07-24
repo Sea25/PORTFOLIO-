@@ -230,37 +230,136 @@ nav {
   100% { transform: translateX(calc(-100vw - 500px)); }
 }
 
-/* Now Playing widget in top right */
+/* =========================================
+   NOW PLAYING WIDGET — Real Audio Player
+   ========================================= */
 .now-playing {
   position: absolute;
   top: 30px; right: 30px;
-  background: var(--white);
+  background: rgba(255,255,255,0.96);
   border: 2px solid var(--text-dark);
-  border-radius: 12px;
-  padding: 0.5rem 0.75rem;
+  border-radius: 16px;
+  padding: 0.7rem 1rem;
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  box-shadow: 3px 3px 0px var(--text-dark);
+  gap: 0.85rem;
+  box-shadow: 4px 4px 0px var(--text-dark);
   z-index: 10;
+  cursor: pointer;
+  transition: var(--transition);
+  backdrop-filter: blur(8px);
 }
-.now-playing-gif {
-  width: 32px;
-  height: 32px;
-  background: var(--purple-light);
-  border-radius: 6px;
-  border: 1px solid var(--text-dark);
+.now-playing:hover {
+  transform: translateY(-2px);
+  box-shadow: 6px 6px 0px var(--text-dark);
 }
-.now-playing-info span:first-child {
+
+/* Album art / vinyl disc */
+.now-playing-album {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  position: relative;
+}
+.vinyl-disc {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #6b6b6b, #1a1a1a 60%, #2a2a2a);
+  border: 2px solid var(--text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0s;
+}
+.vinyl-disc.spinning {
+  animation: vinylSpin 2s linear infinite;
+}
+@keyframes vinylSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.vinyl-inner {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #908df2 30%, #7a26f0 70%);
+  border: 1.5px solid #fff;
+}
+
+/* Text info */
+.now-playing-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 120px;
+}
+.now-playing-label {
   font-family: var(--mono);
-  font-size: 0.6rem;
+  font-size: 0.55rem;
   color: var(--text-muted);
   text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
-.now-playing-info span:last-child {
+.now-playing-title {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+.now-playing-artist {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  margin-bottom: 0.3rem;
+}
+
+/* Equalizer bars */
+.audio-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 14px;
+}
+.audio-bars span {
   display: block;
-  font-size: 0.75rem;
-  font-weight: 700;
+  width: 3px;
+  background: var(--purple);
+  border-radius: 2px;
+  height: 4px;
+  transition: height 0.1s;
+}
+.audio-bars.playing span:nth-child(1) { animation: bar 0.8s ease-in-out infinite; }
+.audio-bars.playing span:nth-child(2) { animation: bar 0.6s ease-in-out infinite 0.1s; }
+.audio-bars.playing span:nth-child(3) { animation: bar 1.0s ease-in-out infinite 0.2s; }
+.audio-bars.playing span:nth-child(4) { animation: bar 0.7s ease-in-out infinite 0.05s; }
+.audio-bars.playing span:nth-child(5) { animation: bar 0.9s ease-in-out infinite 0.15s; }
+
+@keyframes bar {
+  0%, 100% { height: 3px; }
+  50%       { height: 14px; }
+}
+
+/* Play / Pause button */
+.now-playing-btn {
+  background: var(--purple);
+  border: 2px solid var(--text-dark);
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  color: white;
+  font-size: 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.now-playing-btn:hover {
+  transform: scale(1.1);
+  background: #6010d0;
 }
 
 /* Personal ID Card */
@@ -550,21 +649,72 @@ nav {
   color: var(--text-muted);
 }
 
+/* =========================================
+   FLOPPY SCROLL WRAPPER + ARROW BUTTONS
+   ========================================= */
+.floppy-scroll-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Arrow navigation buttons */
+.floppy-arrow {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2.5px solid var(--text-dark);
+  box-shadow: 3px 3px 0px var(--text-dark);
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--text-dark);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  z-index: 10;
+  line-height: 1;
+}
+.floppy-arrow:hover {
+  background: var(--purple);
+  color: var(--white);
+  transform: scale(1.1);
+  box-shadow: 5px 5px 0px var(--text-dark);
+}
+.floppy-arrow:active {
+  transform: scale(0.97) translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--text-dark);
+}
+
 /* Horizontal scrollable floppy disks row */
 .floppy-row {
   display: flex;
   gap: 2.5rem;
   overflow-x: auto;
   padding: 1.5rem 1rem 3rem;
-  max-width: 1200px;
-  margin: 0 auto;
+  flex: 1;
   scroll-snap-type: x mandatory;
+  cursor: grab;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+.floppy-row.dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+  user-select: none;
 }
 .floppy-row::-webkit-scrollbar {
   height: 6px;
 }
 .floppy-row::-webkit-scrollbar-thumb {
   background: var(--purple-light);
+  border-radius: 4px;
 }
 
 /* Floppy Disk Card CSS */
@@ -667,7 +817,9 @@ nav {
   text-decoration: underline;
 }
 
-/* Large black bold marquee */
+/* =========================================
+   MARQUEE — Seamless Infinite Loop
+   ========================================= */
 .bold-marquee {
   overflow: hidden;
   background: var(--white);
@@ -675,143 +827,257 @@ nav {
   border-bottom: 3px solid var(--text-dark);
   padding: 1.5rem 0;
   display: flex;
-  white-space: nowrap;
 }
 
+/* Track holds two copies for seamless loop */
+.bold-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 28s linear infinite;
+}
+
+/* Each content block is identical */
 .bold-marquee-content {
   display: inline-flex;
-  animation: marquee 20s linear infinite;
   gap: 3rem;
+  padding-right: 3rem;
+  white-space: nowrap;
 }
 .bold-marquee-content span {
   font-size: clamp(1.8rem, 5vw, 3.2rem);
   font-weight: 900;
   text-transform: uppercase;
   color: var(--text-dark);
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 3rem;
+  gap: 1.5rem;
 }
 .bold-marquee-content span::after {
   content: '✿';
   color: var(--purple);
+  font-size: 1.2rem;
+}
+
+@keyframes marqueeScroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 /* =========================================
    CERAMIC PLATES SECTION (SKILLS)
    ========================================= */
 .plates-section {
-  background: #fbf8f3;
+  background: linear-gradient(160deg, #fffdf7 0%, #fdf5e8 60%, #fef9f0 100%);
   padding: 8rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle linen texture overlay */
+.plates-section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle at 15% 85%, rgba(122,38,240,0.05) 0%, transparent 55%),
+    radial-gradient(circle at 85% 15%, rgba(126,194,243,0.07) 0%, transparent 55%);
+  pointer-events: none;
 }
 
 .plates-grid {
-  max-width: 1100px;
-  margin: 0 auto;
+  max-width: 1200px;
+  margin: 4rem auto 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 5rem;
+  gap: 4rem 3.5rem;
 }
 
+/* ---- Whole plate setting ---- */
 .plate-container {
   display: flex;
   align-items: center;
+  gap: 1.2rem;
   position: relative;
+  transition: transform 0.35s ease;
+}
+.plate-container:hover {
+  transform: translateY(-6px);
 }
 
-/* Fork CSS */
+/* ---- Fork — polished silver ---- */
 .fork {
-  width: 14px;
-  height: 80px;
-  background: #ebdcc9;
+  width: 10px;
+  height: 90px;
+  background: linear-gradient(180deg, #e0e0e0 0%, #c8c8c8 40%, #d8d8d8 100%);
+  border-radius: 6px 6px 4px 4px;
   position: relative;
-  margin-right: 1.5rem;
-  border-radius: 4px;
-  border: 1px solid #dcd0bf;
+  box-shadow: 1px 2px 6px rgba(0,0,0,0.14), inset 1px 0 2px rgba(255,255,255,0.6);
 }
+/* Tines */
 .fork::before {
-  content: '||||';
+  content: '';
   position: absolute;
-  top: -15px; left: 50%;
+  top: -22px;
+  left: 50%;
   transform: translateX(-50%);
-  font-family: var(--mono);
-  font-size: 1rem;
-  color: #ebdcc9;
-  letter-spacing: -2px;
+  width: 22px;
+  height: 26px;
+  background: linear-gradient(180deg, #d4d4d4 0%, #bcbcbc 100%);
+  border-radius: 3px 3px 0 0;
+  box-shadow:
+    -6px 0 0 0 #c8c8c8,
+    -3px 0 0 0 #c8c8c8,
+     3px 0 0 0 #c8c8c8,
+     6px 0 0 0 #c8c8c8;
+}
+/* Shine line on fork handle */
+.fork::after {
+  content: '';
+  position: absolute;
+  top: 6px; left: 3px;
+  width: 3px; height: 60%;
+  background: rgba(255,255,255,0.55);
+  border-radius: 2px;
 }
 
-/* Spoon CSS */
+/* ---- Spoon — polished silver ---- */
 .spoon {
-  width: 14px;
-  height: 80px;
-  background: #ebdcc9;
+  width: 10px;
+  height: 90px;
+  background: linear-gradient(180deg, #e0e0e0 0%, #c8c8c8 40%, #d8d8d8 100%);
+  border-radius: 4px 4px 6px 6px;
   position: relative;
-  margin-left: 1.5rem;
-  border-radius: 4px;
-  border: 1px solid #dcd0bf;
+  box-shadow: 1px 2px 6px rgba(0,0,0,0.14), inset 1px 0 2px rgba(255,255,255,0.6);
 }
+/* Bowl of spoon */
 .spoon::before {
   content: '';
   position: absolute;
-  top: -20px; left: -5px;
-  width: 24px; height: 32px;
-  background: #ebdcc9;
-  border-radius: 50% 50% 40% 40%;
-  border: 1px solid #dcd0bf;
+  top: -28px; left: 50%;
+  transform: translateX(-50%);
+  width: 26px; height: 34px;
+  background: linear-gradient(145deg, #e8e8e8 20%, #bdbdbd 80%);
+  border-radius: 50% 50% 45% 45% / 55% 55% 45% 45%;
+  box-shadow:
+    inset 0 3px 8px rgba(255,255,255,0.7),
+    inset 0 -2px 6px rgba(0,0,0,0.12),
+    0 2px 4px rgba(0,0,0,0.1);
+}
+/* Shine on spoon bowl */
+.spoon::after {
+  content: '';
+  position: absolute;
+  top: 6px; left: 3px;
+  width: 3px; height: 60%;
+  background: rgba(255,255,255,0.55);
+  border-radius: 2px;
 }
 
-/* Ceramic plate */
+/* ---- Ceramic plate — beautiful & glossy ---- */
 .plate {
-  width: 200px;
-  height: 200px;
+  width: 210px;
+  height: 210px;
   border-radius: 50%;
-  background: #ffffff;
-  border: 3px solid var(--text-dark);
-  box-shadow: 
-    inset 0 0 16px rgba(0,0,0,0.03),
-    0 10px 20px rgba(0,0,0,0.08);
+  background:
+    radial-gradient(circle at 35% 30%, #ffffff 0%, #fafafa 55%, #f0ede8 100%);
+  border: none;
+  box-shadow:
+    0 0 0 3px #e8e2da,
+    0 0 0 6px rgba(255,255,255,0.8),
+    0 0 0 7px #d6cec4,
+    0 16px 40px rgba(0,0,0,0.13),
+    0 4px 10px rgba(0,0,0,0.08),
+    inset 0 -4px 12px rgba(0,0,0,0.04);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--transition);
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+  position: relative;
 }
 
-.plate:hover {
-  transform: scale(1.04);
+.plate-container:hover .plate {
+  box-shadow:
+    0 0 0 3px #cfc7bd,
+    0 0 0 6px rgba(255,255,255,0.8),
+    0 0 0 7px #b8b0a6,
+    0 24px 55px rgba(122,38,240,0.12),
+    0 8px 18px rgba(0,0,0,0.10),
+    inset 0 -4px 12px rgba(0,0,0,0.04);
 }
 
+/* Inner rim / well */
 .plate-inner {
-  width: 150px;
-  height: 150px;
+  width: 154px;
+  height: 154px;
   border-radius: 50%;
-  border: 2px dashed #e2dcd2;
+  background: radial-gradient(circle at 40% 35%, rgba(255,255,255,0.9) 0%, rgba(248,244,238,0.5) 100%);
+  border: 1.5px solid rgba(210,202,192,0.6);
+  box-shadow: inset 0 2px 8px rgba(0,0,0,0.06);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 1rem;
+  padding: 1.1rem;
+  gap: 0.65rem;
 }
 
+/* Category title */
 .plate-title {
   font-family: var(--serif);
   font-style: italic;
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--purple);
-  margin-bottom: 0.4rem;
+  letter-spacing: -0.2px;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.8);
 }
 
+/* Skill tag chips */
 .plate-tags {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  color: var(--text-muted);
-  line-height: 1.4;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
 }
+
+.plate-tags span {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(122,38,240,0.07);
+  border: 1px solid rgba(122,38,240,0.2);
+  color: #5b2baf;
+  letter-spacing: 0.2px;
+  transition: background 0.2s ease, transform 0.2s ease;
+  cursor: default;
+}
+
+.plate-tags span:hover {
+  background: rgba(122,38,240,0.15);
+  transform: scale(1.06);
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .plates-grid { gap: 3rem 2rem; }
+  .plate { width: 185px; height: 185px; }
+  .plate-inner { width: 135px; height: 135px; }
+}
+@media (max-width: 600px) {
+  .plates-grid { gap: 2.5rem 1.5rem; }
+  .plate { width: 160px; height: 160px; }
+  .plate-inner { width: 116px; height: 116px; }
+  .plate-title { font-size: 1rem; }
+}
+
+
 
 /* =========================================
-   SHOPPING BAG TOOLS SECTION
+   SHOPPING BAG TOOLS SECTION — Premium Redesign
    ========================================= */
 .bag-section {
   background: var(--white);
@@ -830,60 +1096,149 @@ nav {
 
 .bag-visual {
   position: relative;
-  height: 350px;
+  height: 420px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
 }
 
-/* Leather Bag Graphic in CSS */
+/* Premium Leather Bag */
 .shopping-bag {
-  width: 180px;
-  height: 160px;
-  background: #6a4637;
-  border: 3px solid var(--text-dark);
-  border-radius: 12px 12px 0 0;
+  width: 200px;
+  height: 190px;
+  background: linear-gradient(145deg, #8B5E3C 0%, #6B3D1E 40%, #5C3319 80%, #4A2812 100%);
+  border: 3px solid #2c1a0e;
+  border-radius: 18px 18px 22px 22px;
   position: relative;
-  box-shadow: 4px 4px 0px var(--text-dark);
+  box-shadow:
+    6px 8px 0px #2c1a0e,
+    inset 2px 2px 12px rgba(255,200,150,0.12),
+    inset -2px -4px 12px rgba(0,0,0,0.3);
   z-index: 5;
+  transition: var(--transition);
+  overflow: visible;
 }
+
+/* Shine strip on bag */
+.bag-body-shine {
+  position: absolute;
+  top: 20px; left: 18px;
+  width: 20px; height: 100px;
+  background: linear-gradient(to bottom, rgba(255,220,170,0.18), transparent);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Bag clasp */
+.bag-clasp {
+  position: absolute;
+  top: 18px; left: 50%;
+  transform: translateX(-50%);
+  width: 38px; height: 16px;
+  background: linear-gradient(to bottom, #d4a85a, #b8860b);
+  border: 2px solid #2c1a0e;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+.bag-clasp::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px; height: 8px;
+  background: #a0700a;
+  border-radius: 2px;
+}
+
+/* Bag opening indicator (top flap) */
+.bag-opening {
+  position: absolute;
+  top: -4px; left: 10%; right: 10%;
+  height: 6px;
+  background: linear-gradient(to right, #4A2812, #8B5E3C, #4A2812);
+  border-radius: 4px 4px 0 0;
+  transition: height 0.4s ease;
+}
+
+/* Handle */
 .shopping-bag-handle {
-  width: 80px; height: 60px;
-  border: 3px solid var(--text-dark);
+  width: 90px; height: 70px;
+  border: 4px solid #2c1a0e;
   border-radius: 50% 50% 0 0;
   position: absolute;
-  top: -45px; left: 50%;
+  top: -55px; left: 50%;
   transform: translateX(-50%);
   background: transparent;
   z-index: 2;
+  /* Inner leather gradient */
+  box-shadow: inset 0 0 0 2px rgba(139, 94, 60, 0.4);
 }
 
-/* Floating Tools labels */
+/* Bag hover state */
+.bag-visual.bag-active .shopping-bag {
+  transform: translateY(-6px) scale(1.02);
+}
+.bag-visual.bag-active .bag-opening {
+  height: 20px;
+}
+
+/* Floating Tools — hidden by default, burst out on hover */
 .floating-tool {
   position: absolute;
-  padding: 0.4rem 0.9rem;
+  padding: 0.45rem 1rem;
   border: 2px solid var(--text-dark);
   border-radius: 100px;
   font-family: var(--mono);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 700;
   box-shadow: 3px 3px 0px var(--text-dark);
-  background: var(--white);
-  animation: floatTool 6s ease-in-out infinite;
   z-index: 8;
+  /* Collapsed state — sitting in the bag */
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.3);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity   0.4s ease,
+    left      0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    top       0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
+    bottom    0.5s ease;
 }
+
+/* Each tool gets its own colour & position when active */
+.bag-visual.bag-active .floating-tool {
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1);
+  animation: floatTool 3s ease-in-out infinite;
+}
+
+/* Staggered delays */
+.bag-visual.bag-active .tool-1 { transition-delay: 0.00s; }
+.bag-visual.bag-active .tool-2 { transition-delay: 0.06s; }
+.bag-visual.bag-active .tool-3 { transition-delay: 0.12s; }
+.bag-visual.bag-active .tool-4 { transition-delay: 0.18s; }
+.bag-visual.bag-active .tool-5 { transition-delay: 0.24s; }
+.bag-visual.bag-active .tool-6 { transition-delay: 0.30s; }
+.bag-visual.bag-active .tool-7 { transition-delay: 0.36s; }
+.bag-visual.bag-active .tool-8 { transition-delay: 0.42s; }
+
+/* Final burst positions (set via JS from data-angle / data-dist) */
+.tool-1 { background: #fff1f2; }
+.tool-2 { background: #f0fdf4; }
+.tool-3 { background: #eff6ff; }
+.tool-4 { background: #fffbeb; }
+.tool-5 { background: #fdf2f8; }
+.tool-6 { background: #fff7ed; }
+.tool-7 { background: #ecfdf5; }
+.tool-8 { background: #faf5ff; }
 
 @keyframes floatTool {
-  0%, 100% { transform: translateY(0) rotate(2deg); }
-  50% { transform: translateY(-15px) rotate(-2deg); }
+  0%, 100% { transform: translateY(0) rotate(2deg) scale(1); }
+  50%       { transform: translateY(-10px) rotate(-2deg) scale(1.03); }
 }
-
-/* Positioning floating tools labels */
-.tool-1 { top: 50px; left: 15%; background: #fff1f2; animation-delay: 0.2s; }
-.tool-2 { top: 90px; right: 20%; background: #f0fdf4; animation-delay: 1.1s; }
-.tool-3 { top: 160px; left: 25%; background: #eff6ff; animation-delay: 0.5s; }
-.tool-4 { top: 120px; left: 45%; background: #fffbeb; animation-delay: 1.8s; }
-.tool-5 { top: 220px; right: 15%; background: #fdf2f8; animation-delay: 0.8s; }
 
 /* =========================================
    EXPERIENCE SECTION (TIMELINE)
@@ -895,7 +1250,7 @@ nav {
 }
 
 /* =========================================
-   CURIOSITY SECTION & GAME
+   GAME SECTION — Upgraded
    ========================================= */
 .game-section {
   background: var(--pink-grid-bg);
@@ -908,7 +1263,7 @@ nav {
 }
 
 .game-container {
-  max-width: 600px;
+  max-width: 620px;
   margin: 0 auto;
   background: var(--white);
   border: 3px solid var(--text-dark);
@@ -929,44 +1284,174 @@ nav {
   margin-bottom: 1.5rem;
 }
 
-/* Find the Pixel game canvas */
+/* Stats row */
+.game-stats-row {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+.game-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f8f5ff;
+  border: 2px solid var(--text-dark);
+  border-radius: 10px;
+  padding: 0.4rem 1rem;
+  min-width: 70px;
+}
+.game-stat-label {
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.game-stat-val {
+  font-family: var(--mono);
+  font-size: 1.2rem;
+  color: var(--purple);
+}
+
+/* Game canvas */
 .pixel-canvas {
   width: 100%;
-  height: 240px;
-  background: #faf8f5;
-  border: 2px solid var(--text-dark);
-  border-radius: 12px;
+  height: 320px;
+  background: radial-gradient(ellipse at center, #1a0533 0%, #0d0118 100%);
+  border: 3px solid var(--text-dark);
+  border-radius: 16px;
   position: relative;
   overflow: hidden;
   cursor: crosshair;
+  margin-bottom: 0.5rem;
 }
+
+/* Stars background */
+.pixel-canvas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 15%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 30% 70%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 20%, rgba(255,255,255,0.7) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 55%, rgba(255,255,255,0.4) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 85%, rgba(255,255,255,0.6) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 10%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 20% 45%, rgba(255,255,255,0.3) 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 80%, rgba(255,255,255,0.6) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Glowing orb target */
 .pixel-target {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  position: absolute;
+  display: none;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+/* Glow layers */
+.pixel-target::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  opacity: 0.35;
+  animation: orbPulse 0.9s ease-in-out infinite;
+}
+.pixel-target::after {
+  content: '';
+  position: absolute;
+  inset: -16px;
+  border-radius: 50%;
+  opacity: 0.15;
+  animation: orbPulse 0.9s ease-in-out infinite 0.15s;
+}
+@keyframes orbPulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.4); }
+}
+
+/* Countdown overlay */
+.game-countdown {
+  position: absolute;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 5rem;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 0 30px var(--purple);
+}
+
+/* Game message overlay */
+.game-message {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--mono);
+  font-size: 1rem;
+  color: rgba(255,255,255,0.7);
+}
+
+/* Particle explosion */
+.game-particle {
+  position: absolute;
   width: 6px;
   height: 6px;
-  background: var(--purple);
-  position: absolute;
   border-radius: 50%;
-  display: none;
+  pointer-events: none;
+  animation: particleBurst 0.6s ease-out forwards;
 }
+@keyframes particleBurst {
+  0%   { opacity: 1; transform: translate(0,0) scale(1); }
+  100% { opacity: 0; transform: var(--tx) scale(0); }
+}
+
+/* Combo flash */
+.combo-flash {
+  position: absolute;
+  font-family: var(--mono);
+  font-size: 1rem;
+  font-weight: 900;
+  color: #fbbf24;
+  pointer-events: none;
+  animation: comboFloat 0.8s ease-out forwards;
+  text-shadow: 0 0 10px #fbbf24;
+  white-space: nowrap;
+}
+@keyframes comboFloat {
+  0%   { opacity: 1; transform: translateY(0) scale(1.3); }
+  100% { opacity: 0; transform: translateY(-50px) scale(0.8); }
+}
+
 .game-btn {
-  padding: 0.6rem 1.5rem;
+  padding: 0.7rem 2rem;
   background: var(--purple);
   color: var(--white);
   border: 2px solid var(--text-dark);
   border-radius: 100px;
   font-weight: 700;
+  font-size: 0.9rem;
   cursor: pointer;
   box-shadow: 3px 3px 0px var(--text-dark);
   transition: var(--transition);
   margin-top: 1rem;
 }
 .game-btn:hover {
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 5px 5px 0px var(--text-dark);
 }
-.game-score-board {
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  margin-top: 1rem;
+.game-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px var(--text-dark);
 }
 
 /* =========================================
@@ -993,51 +1478,99 @@ nav {
   position: relative;
 }
 
-/* Vintage Rotary Phone in CSS */
+/* Vintage Rotary Phone — upgraded */
 .rotary-phone {
-  width: 240px;
-  height: 240px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
-  background: #dbd6c8;
-  border: 3px solid var(--text-dark);
-  box-shadow: 6px 6px 0px var(--text-dark);
+  background: radial-gradient(circle at 35% 35%, #e8e2d4, #ccc5b0 50%, #b0a890 100%);
+  border: 4px solid #2c2c2c;
+  box-shadow:
+    8px 10px 0px #2c2c2c,
+    inset 0 0 20px rgba(255,255,255,0.15),
+    inset 0 0 40px rgba(0,0,0,0.08);
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.rotary-dial {
-  width: 180px; height: 180px;
-  border-radius: 50%;
-  background: var(--white);
-  border: 3px solid var(--text-dark);
-  position: relative;
-  transition: transform 0.6s ease;
-}
-.rotary-hole {
-  width: 26px; height: 26px;
-  border-radius: 50%;
-  border: 2px solid var(--text-dark);
-  background: #ebe6db;
-  position: absolute;
-}
-/* Holes positioning around dial */
-.hole-0 { top: 20px; left: 77px; }
-.hole-1 { top: 32px; right: 40px; }
-.hole-2 { top: 65px; right: 20px; }
-.hole-3 { top: 105px; right: 28px; }
-.hole-4 { top: 132px; right: 58px; }
-.hole-5 { bottom: 20px; left: 77px; }
-.hole-6 { top: 132px; left: 58px; }
-.hole-7 { top: 105px; left: 28px; }
-.hole-8 { top: 65px; left: 20px; }
-.hole-9 { top: 32px; left: 40px; }
 
-.rotary-center {
-  width: 60px; height: 60px;
+/* Dial face */
+.rotary-dial {
+  width: 220px;
+  height: 220px;
   border-radius: 50%;
-  background: var(--purple-light);
-  border: 3px solid var(--text-dark);
+  background: radial-gradient(circle at 40% 40%, #f5f0e8, #e8e0cc 70%);
+  border: 3px solid #2c2c2c;
+  position: relative;
+  transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  box-shadow:
+    inset 0 0 10px rgba(0,0,0,0.12),
+    inset 0 0 3px rgba(255,255,255,0.4);
+}
+
+/* Each dial hole */
+.rotary-hole {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2.5px solid #2c2c2c;
+  background: radial-gradient(circle at 35% 35%, #f0e8d8, #d4c8b0);
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow:
+    inset 0 2px 4px rgba(0,0,0,0.2),
+    2px 2px 0px rgba(0,0,0,0.15);
+}
+.rotary-hole:hover {
+  background: radial-gradient(circle at 35% 35%, #908df2, #7a26f0);
+  border-color: #5a00d0;
+}
+.rotary-hole:hover span {
+  color: white;
+}
+.rotary-hole span {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  font-weight: 900;
+  color: #3a3020;
+  pointer-events: none;
+  letter-spacing: 0;
+  transition: color 0.2s;
+}
+
+/*
+  11 holes for SONA ABRAHAM, evenly spaced around the dial.
+  Radius from center ≈ 82px. Center of dial is 110px,110px.
+  Angles: 360/11 ≈ 32.7deg per step, starting at -90deg (top).
+  hole-0 → S,  hole-1 → O,  hole-2 → N,  hole-3 → A,
+  hole-4 → A,  hole-5 → B,  hole-6 → R,  hole-7 → A,
+  hole-8 → H,  hole-9 → A,  hole-10 → M
+  top/left = center(110) + radius*sin/cos - halfWidth(16)
+*/
+.rotary-hole:nth-child(1)  { top:  12px; left:  94px; } /* S  — top     */
+.rotary-hole:nth-child(2)  { top:  24px; left: 144px; } /* O  — top-right  */
+.rotary-hole:nth-child(3)  { top:  57px; left: 180px; } /* N  */
+.rotary-hole:nth-child(4)  { top: 103px; left: 190px; } /* A  — right  */
+.rotary-hole:nth-child(5)  { top: 150px; left: 175px; } /* A  */
+.rotary-hole:nth-child(6)  { top: 185px; left: 143px; } /* B  — bottom-right */
+.rotary-hole:nth-child(7)  { top: 196px; left:  94px; } /* R  — bottom */
+.rotary-hole:nth-child(8)  { top: 185px; left:  46px; } /* A  — bottom-left */
+.rotary-hole:nth-child(9)  { top: 150px; left:  14px; } /* H  */
+.rotary-hole:nth-child(10) { top: 103px; left:   0px; } /* A  — left */
+.rotary-hole:nth-child(11) { top:  57px; left:  12px; } /* M  */
+
+/* Centre label */
+.rotary-center {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 40%, #a89aef, #7a26f0);
+  border: 3px solid #2c2c2c;
   position: absolute;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
@@ -1045,10 +1578,27 @@ nav {
   align-items: center;
   justify-content: center;
   font-family: var(--mono);
-  font-size: 0.55rem;
-  font-weight: 700;
+  font-size: 0.58rem;
+  font-weight: 900;
   text-align: center;
+  color: white;
   z-index: 5;
+  box-shadow:
+    inset 0 2px 6px rgba(255,255,255,0.25),
+    0 4px 8px rgba(0,0,0,0.3);
+  letter-spacing: 0.05em;
+}
+
+/* Finger stop guard */
+.rotary-stop {
+  position: absolute;
+  bottom: 8px;
+  right: 16px;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #2c2c2c;
+  box-shadow: inset 0 2px 4px rgba(255,255,255,0.1);
 }
 
 /* Postage Stamps (Social Links) */
@@ -1299,5 +1849,19 @@ footer {
   }
   body {
     cursor: auto;
+  }
+  .floppy-arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 1.3rem;
+  }
+  .now-playing {
+    top: auto;
+    bottom: 20px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+  .game-stats-row {
+    gap: 0.8rem;
   }
 }

@@ -46,13 +46,34 @@
       <div class="cloud cloud-3"></div>
     </div>
 
-    <!-- Now Playing Widget -->
-    <div class="now-playing">
-      <img src="https://api.dicebear.com/7.x/identicon/svg?seed=nowplaying" class="now-playing-gif" alt="Music icon">
-      <div class="now-playing-info">
-        <span>Now Playing</span>
-        <span>Tinkering servers.sh</span>
+    <!-- ===================================
+         NOW PLAYING WIDGET
+         To change song: update the src in the <audio> tag below
+         and update the song title / artist text.
+    =================================== -->
+    <div class="now-playing" id="nowPlayingWidget">
+      <div class="now-playing-album" id="albumArt">
+        <div class="vinyl-disc" id="vinylDisc">
+          <div class="vinyl-inner"></div>
+        </div>
       </div>
+      <div class="now-playing-info">
+        <span class="now-playing-label">NOW PLAYING</span>
+        <!-- ===== CONFIGURE YOUR SONG TITLE HERE ===== -->
+        <span class="now-playing-title" id="songTitle">Blinding Lights</span>
+        <!-- ===== CONFIGURE YOUR ARTIST HERE ===== -->
+        <span class="now-playing-artist" id="songArtist">The Weeknd</span>
+        <div class="audio-bars" id="audioBars">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+      <button class="now-playing-btn" id="playPauseBtn" aria-label="Play/Pause">
+        <span id="playIcon">▶</span>
+      </button>
+      <!-- ===== CONFIGURE YOUR SONG URL HERE (any .mp3 or audio URL) ===== -->
+      <audio id="songAudio" preload="none">
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+      </audio>
     </div>
     
     <!-- Floating Personal ID Card -->
@@ -64,7 +85,7 @@
       
       <div class="id-card-body">
         <div class="id-card-photo">
-          <img src="https://api.dicebear.com/7.x/adventurer/svg?seed=SonaElizabeth" class="id-card-photo-img" alt="Sona Elizabeth Abraham">
+          <img src="MEDIAS/avatar.jpg" class="id-card-photo-img" alt="Sona Elizabeth Abraham">
         </div>
         
         <div class="id-card-info">
@@ -88,7 +109,7 @@
       </div>
       
       <div class="id-card-disclaimer">
-        "An developer who believes every project is a chance to learn, create, and make a difference."
+        "A developer who believes every project is a chance to learn, create, and make a difference."
       </div>
     </div>
 
@@ -143,74 +164,136 @@
       <p>Filed under: Things I'm Proud Of.</p>
     </div>
 
-    <div class="floppy-row">
-      <!-- Floppy 1 (Orange) -->
-      <div class="floppy floppy-orange">
-        <div class="floppy-slider"></div>
-        <div class="floppy-notch"></div>
-        <div class="floppy-label">
-          <div class="floppy-label-title">Binance Trading Bot</div>
-          <div class="floppy-label-desc">Python-based CLI bot utilizing raw API calls, secure signing, and automation logic.</div>
-          <div class="floppy-links">
-            <a href="https://github.com/Sea25/Trading-Bot" class="floppy-link" target="_blank">Code ↗</a>
-            <a href="https://trading-bot-7ea4.onrender.com/" class="floppy-link" target="_blank">Demo ↗</a>
+    <!-- Scroll wrapper with arrow buttons -->
+    <div class="floppy-scroll-wrapper">
+      <button class="floppy-arrow floppy-arrow-left" id="floppyLeft" aria-label="Scroll left">&#8249;</button>
+
+      <div class="floppy-row" id="floppyRow">
+        <!-- Floppy 1 (Orange) -->
+        <div class="floppy floppy-orange">
+          <div class="floppy-slider"></div>
+          <div class="floppy-notch"></div>
+          <div class="floppy-label">
+            <div class="floppy-label-title">Binance Trading Bot</div>
+            <div class="floppy-label-desc">Python-based CLI bot utilizing raw API calls, secure signing, and automation logic.</div>
+            <div class="floppy-links">
+              <a href="https://github.com/Sea25/Trading-Bot" class="floppy-link" target="_blank">Code ↗</a>
+              <a href="https://trading-bot-7ea4.onrender.com/" class="floppy-link" target="_blank">Demo ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floppy 2 (Purple) -->
+        <div class="floppy floppy-purple">
+          <div class="floppy-slider"></div>
+          <div class="floppy-notch"></div>
+          <div class="floppy-label">
+            <div class="floppy-label-title">MM ImageVault</div>
+            <div class="floppy-label-desc">MM ImageVault is Django based web application for temporary image upload, download and management while preserving original image quality and file format.</div>
+            <div class="floppy-links">
+              <a href="https://github.com/Sea25/MM-ImageVault" class="floppy-link" target="_blank">Code ↗</a>
+              <a href="https://mm-imagevault.onrender.com" class="floppy-link" target="_blank">Demo ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floppy 3 (Green) -->
+        <div class="floppy floppy-green">
+          <div class="floppy-slider"></div>
+          <div class="floppy-notch"></div>
+          <div class="floppy-label">
+            <div class="floppy-label-title">CAREERLINK</div>
+            <div class="floppy-label-desc">AI preparedness portal evaluating resume gaps and mapping career preparatory nodes.</div>
+            <div class="floppy-links">
+              <a href="https://github.com/Sea25/Career-Link-" class="floppy-link" target="_blank">Code ↗</a>
+              <a href="https://career-link-mauve.vercel.app" class="floppy-link" target="_blank">Demo ↗</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Floppy 4 (Blue) -->
+        <div class="floppy floppy-blue">
+          <div class="floppy-slider"></div>
+          <div class="floppy-notch"></div>
+          <div class="floppy-label">
+            <div class="floppy-label-title">POLLYTICS</div>
+            <div class="floppy-label-desc">Election visualization portal with booth metrics and natural-language query matching.</div>
+            <div class="floppy-links">
+              <a href="https://github.com/Sea25/Pollytics" class="floppy-link" target="_blank">Code ↗</a>
+              <a href="https://pollytics-ezzwpsby9lapeqyx9kaw6x.streamlit.app/" class="floppy-link" target="_blank">Demo ↗</a>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Floppy 2 (Purple) -->
-      <div class="floppy floppy-purple">
-        <div class="floppy-slider"></div>
-        <div class="floppy-notch"></div>
-        <div class="floppy-label">
-          <div class="floppy-label-title">Golf Charity Portal</div>
-          <div class="floppy-label-desc">Full-stack platform integrating Stripe cycles, dashboard analytics, and billing hooks.</div>
-          <div class="floppy-links">
-            <a href="https://github.com/Sea25/Golf-Charity-Subscription-Platform" class="floppy-link" target="_blank">Code ↗</a>
-            <a href="https://golf-charity-subscription-platform-gules.vercel.app/" class="floppy-link" target="_blank">Demo ↗</a>
-          </div>
-        </div>
-      </div>
 
-      <!-- Floppy 3 (Green) -->
-      <div class="floppy floppy-green">
-        <div class="floppy-slider"></div>
-        <div class="floppy-notch"></div>
-        <div class="floppy-label">
-          <div class="floppy-label-title">CareerLink Hub</div>
-          <div class="floppy-label-desc">AI preparedness portal evaluating resume gaps and mapping career preparatory nodes.</div>
-          <div class="floppy-links">
-            <a href="https://github.com/Sea25/Career-Link-" class="floppy-link" target="_blank">Code ↗</a>
-            <a href="https://career-link-mauve.vercel.app" class="floppy-link" target="_blank">Demo ↗</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Floppy 4 (Blue) -->
       <div class="floppy floppy-blue">
-        <div class="floppy-slider"></div>
-        <div class="floppy-notch"></div>
-        <div class="floppy-label">
-          <div class="floppy-label-title">Pollytics Analytics</div>
-          <div class="floppy-label-desc">Election visualization portal with booth metrics and natural-language query matching.</div>
-          <div class="floppy-links">
-            <a href="https://github.com/Sea25/Pollytics" class="floppy-link" target="_blank">Code ↗</a>
-            <a href="https://pollytics-ezzwpsby9lapeqyx9kaw6x.streamlit.app/" class="floppy-link" target="_blank">Demo ↗</a>
+          <div class="floppy-slider"></div>
+          <div class="floppy-notch"></div>
+          <div class="floppy-label">
+            <div class="floppy-label-title">QUICKSLOT</div>
+            <div class="floppy-label-desc">QuickSlot is an intelligent web-based parking management system designed to automate vehicle entry, slot allocation, and exit processing.</div>
+            <div class="floppy-links">
+              <a href="https://github.com/Sea25/Quick-Slot" class="floppy-link" target="_blank">Code ↗</a>
+              <a href="https://quick-slot.onrender.com" class="floppy-link" target="_blank">Demo ↗</a>
+            </div>
           </div>
         </div>
       </div>
+
+
+      <div class="floppy floppy-blue">
+          <div class="floppy-slider"></div>
+          <div class="floppy-notch"></div>
+          <div class="floppy-label">
+            <div class="floppy-label-title">CODEQUEST</div>
+            <div class="floppy-label-desc">CodeQuest is an interactive platform for developers to practice coding challenges and improve their programming skills.</div>
+            <div class="floppy-links">
+              <a href="https://github.com/Sea25/CodeQuest" class="floppy-link" target="_blank">Code ↗</a>
+              <a href="https://code-quest-zeta.vercel.app/" class="floppy-link" target="_blank">Demo ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="floppy floppy-blue">
+          <div class="floppy-slider"></div>
+          <div class="floppy-notch"></div>
+          <div class="floppy-label">
+            <div class="floppy-label-title">CHATTERBOX</div>
+            <div class="floppy-label-desc">The server is built using Node.js with the ws WebSocket library to manage real-time connections, broadcast messages, and handle chat clearing in a synchronized way.</div>
+            <div class="floppy-links">
+              <a href="https://github.com/Sea25/ChatterBox" class="floppy-link" target="_blank">Code ↗</a>
+              <a href="chatter-box-lilac.vercel.app" class="floppy-link" target="_blank">Demo ↗</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="floppy-arrow floppy-arrow-right" id="floppyRight" aria-label="Scroll right">&#8250;</button>
     </div>
   </section>
 
   <!-- ====== LOGIC MARQUEE ====== -->
   <div class="bold-marquee">
-    <div class="bold-marquee-content">
-      <span>Design backed by logic</span>
-      <span>Infrastructure built to scale</span>
-      <span>Linux & Cloud enthusiast</span>
-      <span>Design backed by logic</span>
-      <span>Infrastructure built to scale</span>
-      <span>Linux & Cloud enthusiast</span>
+    <div class="bold-marquee-track">
+      <div class="bold-marquee-content">
+        <span>Dream big. Build bigge</span>
+        <span>Tech Explorer</span>
+        <span>Linux &amp; Cloud enthusiast</span>
+        <span>Open Source Learner</span>
+        <span>IT Undergraduate</span>
+        <span>Web Application Developer</span>
+      </div>
+      <div class="bold-marquee-content" aria-hidden="true">
+        <span>Design backed by logic</span>
+        <span>Infrastructure built to scale</span>
+        <span>Linux &amp; Cloud enthusiast</span>
+        <span>Design backed by logic</span>
+        <span>Infrastructure built to scale</span>
+        <span>Linux &amp; Cloud enthusiast</span>
+      </div>
     </div>
   </div>
 
@@ -218,57 +301,77 @@
   <section class="plates-section" id="skills">
     <div class="grid-section-header">
       <h2>What I bring to the <em>table</em>?</h2>
-      <p>A blend of development skills, network design, and reliable automation.</p>
+      <p>A full-stack blend of frontend craft, backend logic, databases &amp; developer tools.</p>
     </div>
 
     <div class="plates-grid">
-      <!-- Plate 1 -->
+
+      <!-- Plate 1: Frontend -->
+      <div class="plate-container">
+        <div class="fork"></div>
+        <div class="plate">
+          <div class="plate-inner">
+            <div class="plate-title">Frontend</div>
+            <div class="plate-tags">
+              <span>HTML</span>
+              <span>CSS</span>
+              <span>JavaScript</span>
+              <span>Bootstrap</span>
+            </div>
+          </div>
+        </div>
+        <div class="spoon"></div>
+      </div>
+
+      <!-- Plate 2: Backend -->
       <div class="plate-container">
         <div class="fork"></div>
         <div class="plate">
           <div class="plate-inner">
             <div class="plate-title">Backend</div>
-            <div class="plate-tags">Node.js, Express, Python, REST APIs, API Design</div>
+            <div class="plate-tags">
+              <span>Python</span>
+              <span>Django</span>
+              <span>REST APIs</span>
+            </div>
           </div>
         </div>
         <div class="spoon"></div>
       </div>
 
-      <!-- Plate 2 -->
+      <!-- Plate 3: Database -->
       <div class="plate-container">
         <div class="fork"></div>
         <div class="plate">
           <div class="plate-inner">
-            <div class="plate-title">Systems</div>
-            <div class="plate-tags">Linux, Windows Admin, VMware, Active Directory</div>
+            <div class="plate-title">Database</div>
+            <div class="plate-tags">
+              <span>SQLite</span>
+              <span>MySQL</span>
+              <span>Supabase</span>
+            </div>
           </div>
         </div>
         <div class="spoon"></div>
       </div>
 
-      <!-- Plate 3 -->
+      <!-- Plate 4: Tools -->
       <div class="plate-container">
         <div class="fork"></div>
         <div class="plate">
           <div class="plate-inner">
-            <div class="plate-title">Cloud</div>
-            <div class="plate-tags">Supabase, Firebase, SQL, Docker, Deployments</div>
+            <div class="plate-title">Tools</div>
+            <div class="plate-tags">
+              <span>Git</span>
+              <span>GitHub</span>
+              <span>VS Code</span>
+              <span>Render</span>
+            </div>
           </div>
         </div>
         <div class="spoon"></div>
       </div>
 
-      <!-- Plate 4 -->
-      <div class="plate-container">
-        <div class="fork"></div>
-        <div class="plate">
-          <div class="plate-inner">
-            <div class="plate-title">DevOps</div>
-            <div class="plate-tags">Git/GitHub, Bash Scripts, VS Code, Streamlit</div>
-          </div>
-        </div>
-        <div class="spoon"></div>
-      </div>
     </div>
   </section>
 
@@ -285,26 +388,42 @@
         </p>
       </div>
 
-      <div class="bag-visual">
-        <div class="shopping-bag">
+      <div class="bag-visual" id="bagVisual">
+        <!-- Premium Bag SVG-style CSS -->
+        <div class="shopping-bag" id="shoppingBag">
           <div class="shopping-bag-handle"></div>
+          <div class="bag-body-shine"></div>
+          <div class="bag-clasp"></div>
+          <div class="bag-opening" id="bagOpening"></div>
         </div>
-        <div class="floating-tool tool-1">Node.js</div>
-        <div class="floating-tool tool-2">Python</div>
-        <div class="floating-tool tool-3">VMware</div>
-        <div class="floating-tool tool-4">Docker</div>
-        <div class="floating-tool tool-5">Linux</div>
+        <!-- Tool chips that burst out -->
+        <div class="floating-tool tool-1" data-angle="-135" data-dist="160">🟢 Node.js</div>
+        <div class="floating-tool tool-2" data-angle="-75"  data-dist="170">🐍 Python</div>
+        <div class="floating-tool tool-3" data-angle="-160" data-dist="140">🖥️ VMware</div>
+        <div class="floating-tool tool-4" data-angle="-45"  data-dist="155">🐳 Docker</div>
+        <div class="floating-tool tool-5" data-angle="-100" data-dist="180">🐧 Linux</div>
+        <div class="floating-tool tool-6" data-angle="-20"  data-dist="145">🔥 Firebase</div>
+        <div class="floating-tool tool-7" data-angle="160"  data-dist="130">⚡ Bash</div>
+        <div class="floating-tool tool-8" data-angle="20"   data-dist="150">🗄️ SQL</div>
       </div>
     </div>
   </section>
 
   <!-- ====== CURIOSITY MARQUEE ====== -->
   <div class="bold-marquee" style="border-top: 2px solid var(--text-dark); background: var(--pink-grid-bg);">
-    <div class="bold-marquee-content">
-      <span>Fuelled by curiosity</span>
-      <span>Fuelled by curiosity</span>
-      <span>Fuelled by curiosity</span>
-      <span>Fuelled by curiosity</span>
+    <div class="bold-marquee-track">
+      <div class="bold-marquee-content">
+        <span>Fuelled by curiosity</span>
+        <span>Fuelled by curiosity</span>
+        <span>Fuelled by curiosity</span>
+        <span>Fuelled by curiosity</span>
+      </div>
+      <div class="bold-marquee-content" aria-hidden="true">
+        <span>Fuelled by curiosity</span>
+        <span>Fuelled by curiosity</span>
+        <span>Fuelled by curiosity</span>
+        <span>Fuelled by curiosity</span>
+      </div>
     </div>
   </div>
 
@@ -312,18 +431,34 @@
   <section class="game-section">
     <div class="game-container">
       <h3 class="game-box-title">Before you leave... Fancy a game? 🎮</h3>
-      <p class="game-box-desc">Find the hidden 6px pixel dot. Click it before the timer runs out!</p>
+      <p class="game-box-desc">Hunt the glowing orb! Quick clicks = combo multiplier. Beat your high score!</p>
       
+      <div class="game-stats-row">
+        <div class="game-stat">
+          <span class="game-stat-label">Score</span>
+          <strong class="game-stat-val" id="scoreVal">0</strong>
+        </div>
+        <div class="game-stat">
+          <span class="game-stat-label">Best</span>
+          <strong class="game-stat-val" id="bestVal">0</strong>
+        </div>
+        <div class="game-stat">
+          <span class="game-stat-label">Combo</span>
+          <strong class="game-stat-val" id="comboVal">x1</strong>
+        </div>
+        <div class="game-stat">
+          <span class="game-stat-label">Time</span>
+          <strong class="game-stat-val" id="timerVal">15</strong>
+        </div>
+      </div>
+
       <div class="pixel-canvas" id="pixelCanvas">
         <div class="pixel-target" id="pixelTarget"></div>
+        <div class="game-countdown" id="gameCountdown"></div>
+        <div class="game-message" id="gameMessage">🎮 Press Start!</div>
       </div>
       
       <button class="game-btn" id="startGame">Let's go →</button>
-      
-      <div class="game-score-board">
-        <span>Score: <strong id="scoreVal">0</strong></span> | 
-        <span>Time: <strong id="timerVal">10</strong>s</span>
-      </div>
     </div>
   </section>
 
@@ -334,21 +469,30 @@
     <div class="contact-grid">
       <div class="phone-wrapper">
         <div class="rotary-phone">
+          <!-- Rotary dial: each hole = one letter of SONA ABRAHAM -->
           <div class="rotary-dial" id="rotaryDial">
-            <div class="rotary-hole hole-0"></div>
-            <div class="rotary-hole hole-1"></div>
-            <div class="rotary-hole hole-2"></div>
-            <div class="rotary-hole hole-3"></div>
-            <div class="rotary-hole hole-4"></div>
-            <div class="rotary-hole hole-5"></div>
-            <div class="rotary-hole hole-6"></div>
-            <div class="rotary-hole hole-7"></div>
-            <div class="rotary-hole hole-8"></div>
-            <div class="rotary-hole hole-9"></div>
+            <!--
+              Letters: S O N A · A B R A H A M
+              Using 11 holes for S O N A A B R A H A M
+              Arranged around the dial like a real rotary phone
+            -->
+            <div class="rotary-hole" data-letter="S"><span>S</span></div>
+            <div class="rotary-hole" data-letter="O"><span>O</span></div>
+            <div class="rotary-hole" data-letter="N"><span>N</span></div>
+            <div class="rotary-hole" data-letter="A"><span>A</span></div>
+            <div class="rotary-hole" data-letter="A"><span>A</span></div>
+            <div class="rotary-hole" data-letter="B"><span>B</span></div>
+            <div class="rotary-hole" data-letter="R"><span>R</span></div>
+            <div class="rotary-hole" data-letter="A"><span>A</span></div>
+            <div class="rotary-hole" data-letter="H"><span>H</span></div>
+            <div class="rotary-hole" data-letter="A"><span>A</span></div>
+            <div class="rotary-hole" data-letter="M"><span>M</span></div>
           </div>
           <div class="rotary-center">
             DIAL<br>SONA
           </div>
+          <!-- Decorative finger stop -->
+          <div class="rotary-stop"></div>
         </div>
       </div>
 
@@ -406,11 +550,11 @@
   <!-- ====== FOOTER ====== -->
   <footer>
     <div>
-      <div class="footer-logo">Voxo<span>.</span></div>
+      <div class="footer-logo">SEA<span>.</span></div>
       <p class="footer-copy" style="margin-top: 0.5rem;">Designing with intention</p>
     </div>
     <div style="text-align: right;">
-      <p class="footer-copy">© 2026 Designed & Built by Sona Elizabeth Abraham</p>
+      <p class="footer-copy">Built by Sona Elizabeth Abraham</p>
       <a href="#" class="back-to-top" style="margin-top: 0.5rem; display: block;">Back to top ↑</a>
     </div>
   </footer>
