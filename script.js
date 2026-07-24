@@ -1,4 +1,36 @@
 // =========================================
+// MOBILE NAV — HAMBURGER TOGGLE
+// =========================================
+const navBurger  = document.getElementById('navBurger');
+const navPanel   = document.getElementById('navMobilePanel');
+
+if (navBurger && navPanel) {
+  navBurger.addEventListener('click', () => {
+    const isOpen = navPanel.classList.toggle('open');
+    navBurger.classList.toggle('open', isOpen);
+    navBurger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  // Close the panel whenever a link inside it is tapped
+  navPanel.querySelectorAll('.nav-mobile-item').forEach((link) => {
+    link.addEventListener('click', () => {
+      navPanel.classList.remove('open');
+      navBurger.classList.remove('open');
+      navBurger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Close the panel on outside click
+  document.addEventListener('click', (e) => {
+    if (!navPanel.classList.contains('open')) return;
+    if (navPanel.contains(e.target) || navBurger.contains(e.target)) return;
+    navPanel.classList.remove('open');
+    navBurger.classList.remove('open');
+    navBurger.setAttribute('aria-expanded', 'false');
+  });
+}
+
+// =========================================
 // CUSTOM CURSOR (only on desktop)
 // =========================================
 const isTouch = window.matchMedia('(pointer: coarse)').matches;
