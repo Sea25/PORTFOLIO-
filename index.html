@@ -60,9 +60,9 @@
       <div class="now-playing-info">
         <span class="now-playing-label">NOW PLAYING</span>
         <!-- ===== CONFIGURE YOUR SONG TITLE HERE ===== -->
-        <span class="now-playing-title" id="songTitle">Blinding Lights</span>
+        <span class="now-playing-title" id="songTitle">Steal My Girl</span>
         <!-- ===== CONFIGURE YOUR ARTIST HERE ===== -->
-        <span class="now-playing-artist" id="songArtist">The Weeknd</span>
+        <span class="now-playing-artist" id="songArtist">One Direction</span>
         <div class="audio-bars" id="audioBars">
           <span></span><span></span><span></span><span></span><span></span>
         </div>
@@ -72,7 +72,7 @@
       </button>
       <!-- ===== CONFIGURE YOUR SONG URL HERE (any .mp3 or audio URL) ===== -->
       <audio id="songAudio" preload="none">
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        <source src="MEDIAS/steal-my-girl.mp3" type="audio/mpeg">
       </audio>
     </div>
     
@@ -224,10 +224,9 @@
             </div>
           </div>
         </div>
-      </div>
 
-
-      <div class="floppy floppy-blue">
+        <!-- Floppy 5 (Yellow) — copy this block to add future projects -->
+        <div class="floppy floppy-yellow">
           <div class="floppy-slider"></div>
           <div class="floppy-notch"></div>
           <div class="floppy-label">
@@ -239,10 +238,9 @@
             </div>
           </div>
         </div>
-      </div>
 
-
-      <div class="floppy floppy-blue">
+        <!-- Floppy 6 (Teal) -->
+        <div class="floppy floppy-teal">
           <div class="floppy-slider"></div>
           <div class="floppy-notch"></div>
           <div class="floppy-label">
@@ -254,10 +252,9 @@
             </div>
           </div>
         </div>
-      </div>
 
-
-      <div class="floppy floppy-blue">
+        <!-- Floppy 7 (Pink) -->
+        <div class="floppy floppy-pink">
           <div class="floppy-slider"></div>
           <div class="floppy-notch"></div>
           <div class="floppy-label">
@@ -265,7 +262,7 @@
             <div class="floppy-label-desc">The server is built using Node.js with the ws WebSocket library to manage real-time connections, broadcast messages, and handle chat clearing in a synchronized way.</div>
             <div class="floppy-links">
               <a href="https://github.com/Sea25/ChatterBox" class="floppy-link" target="_blank">Code ↗</a>
-              <a href="chatter-box-lilac.vercel.app" class="floppy-link" target="_blank">Demo ↗</a>
+              <a href="https://chatter-box-lilac.vercel.app" class="floppy-link" target="_blank">Demo ↗</a>
             </div>
           </div>
         </div>
@@ -279,7 +276,7 @@
   <div class="bold-marquee">
     <div class="bold-marquee-track">
       <div class="bold-marquee-content">
-        <span>Dream big. Build bigge</span>
+        <span>Dream big. Build bigger</span>
         <span>Tech Explorer</span>
         <span>Linux &amp; Cloud enthusiast</span>
         <span>Open Source Learner</span>
@@ -287,12 +284,12 @@
         <span>Web Application Developer</span>
       </div>
       <div class="bold-marquee-content" aria-hidden="true">
-        <span>Design backed by logic</span>
-        <span>Infrastructure built to scale</span>
+        <span>Dream big. Build bigger</span>
+        <span>Tech Explorer</span>
         <span>Linux &amp; Cloud enthusiast</span>
-        <span>Design backed by logic</span>
-        <span>Infrastructure built to scale</span>
-        <span>Linux &amp; Cloud enthusiast</span>
+        <span>Open Source Learner</span>
+        <span>IT Undergraduate</span>
+        <span>Web Application Developer</span>
       </div>
     </div>
   </div>
@@ -396,15 +393,17 @@
           <div class="bag-clasp"></div>
           <div class="bag-opening" id="bagOpening"></div>
         </div>
-        <!-- Tool chips that burst out -->
-        <div class="floating-tool tool-1" data-angle="-135" data-dist="160">🟢 Node.js</div>
-        <div class="floating-tool tool-2" data-angle="-75"  data-dist="170">🐍 Python</div>
-        <div class="floating-tool tool-3" data-angle="-160" data-dist="140">🖥️ VMware</div>
-        <div class="floating-tool tool-4" data-angle="-45"  data-dist="155">🐳 Docker</div>
-        <div class="floating-tool tool-5" data-angle="-100" data-dist="180">🐧 Linux</div>
-        <div class="floating-tool tool-6" data-angle="-20"  data-dist="145">🔥 Firebase</div>
-        <div class="floating-tool tool-7" data-angle="160"  data-dist="130">⚡ Bash</div>
-        <div class="floating-tool tool-8" data-angle="20"   data-dist="150">🗄️ SQL</div>
+        <!-- Tool chips that burst out in a circle on hover -->
+        <div class="floating-tool tool-1">🐍 Python</div>
+        <div class="floating-tool tool-2">🎯 Django</div>
+        <div class="floating-tool tool-3">🌐 HTML5</div>
+        <div class="floating-tool tool-4">🎨 CSS3</div>
+        <div class="floating-tool tool-5">⚡ JavaScript</div>
+        <div class="floating-tool tool-6">🐬 MySQL</div>
+        <div class="floating-tool tool-7">🌿 Git</div>
+        <div class="floating-tool tool-8">🐙 GitHub</div>
+        <div class="floating-tool tool-9">💻 VS Code</div>
+        <div class="floating-tool tool-10">🚀 Render</div>
       </div>
     </div>
   </section>
@@ -469,30 +468,33 @@
     <div class="contact-grid">
       <div class="phone-wrapper">
         <div class="rotary-phone">
-          <!-- Rotary dial: each hole = one letter of SONA ABRAHAM -->
-          <div class="rotary-dial" id="rotaryDial">
-            <!--
-              Letters: S O N A · A B R A H A M
-              Using 11 holes for S O N A A B R A H A M
-              Arranged around the dial like a real rotary phone
-            -->
-            <div class="rotary-hole" data-letter="S"><span>S</span></div>
-            <div class="rotary-hole" data-letter="O"><span>O</span></div>
-            <div class="rotary-hole" data-letter="N"><span>N</span></div>
-            <div class="rotary-hole" data-letter="A"><span>A</span></div>
-            <div class="rotary-hole" data-letter="A"><span>A</span></div>
-            <div class="rotary-hole" data-letter="B"><span>B</span></div>
-            <div class="rotary-hole" data-letter="R"><span>R</span></div>
-            <div class="rotary-hole" data-letter="A"><span>A</span></div>
-            <div class="rotary-hole" data-letter="H"><span>H</span></div>
-            <div class="rotary-hole" data-letter="A"><span>A</span></div>
-            <div class="rotary-hole" data-letter="M"><span>M</span></div>
+          <div class="rotary-dial-wrap">
+            <div class="rotary-dial" id="rotaryDial">
+              <div class="rotary-plate"></div>
+              <div class="rotary-metal-ring"></div>
+              <div class="rotary-holes" id="rotaryHoles">
+                <div class="rotary-hole" data-letter="S" style="--i: 0"><span>S</span></div>
+                <div class="rotary-hole" data-letter="O" style="--i: 1"><span>O</span></div>
+                <div class="rotary-hole" data-letter="N" style="--i: 2"><span>N</span></div>
+                <div class="rotary-hole" data-letter="A" style="--i: 3"><span>A</span></div>
+                <div class="rotary-hole" data-letter="A" style="--i: 4"><span>A</span></div>
+                <div class="rotary-hole" data-letter="B" style="--i: 5"><span>B</span></div>
+                <div class="rotary-hole" data-letter="R" style="--i: 6"><span>R</span></div>
+                <div class="rotary-hole" data-letter="A" style="--i: 7"><span>A</span></div>
+                <div class="rotary-hole" data-letter="H" style="--i: 8"><span>H</span></div>
+                <div class="rotary-hole" data-letter="A" style="--i: 9"><span>A</span></div>
+                <div class="rotary-hole" data-letter="M" style="--i: 10"><span>M</span></div>
+              </div>
+            </div>
+            <div class="rotary-center">
+              <span class="rotary-center-line">DIAL</span>
+              <span class="rotary-center-name">SONA</span>
+              <span class="rotary-center-line">FOR</span>
+              <span class="rotary-center-line">A CHAT</span>
+              <img src="MEDIAS/avatar.jpg" class="rotary-avatar" alt="Sona">
+            </div>
+            <div class="rotary-stop"></div>
           </div>
-          <div class="rotary-center">
-            DIAL<br>SONA
-          </div>
-          <!-- Decorative finger stop -->
-          <div class="rotary-stop"></div>
         </div>
       </div>
 

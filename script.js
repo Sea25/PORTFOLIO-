@@ -102,6 +102,21 @@ function setPlaying(playing) {
 }
 
 if (playPauseBtn && audio) {
+  // Log any load/decoding errors as soon as they happen (not just on click)
+  audio.addEventListener('error', () => {
+    const err = audio.error;
+    let reason = 'Unknown error';
+    if (err) {
+      switch (err.code) {
+        case err.MEDIA_ERR_ABORTED: reason = 'Playback aborted'; break;
+        case err.MEDIA_ERR_NETWORK: reason = 'Network error while loading audio'; break;
+        case err.MEDIA_ERR_DECODE: reason = 'Audio file is corrupted or not a valid MP3'; break;
+        case err.MEDIA_ERR_SRC_NOT_SUPPORTED: reason = 'Audio file not found or format not supported (check the file path!)'; break;
+      }
+    }
+    console.error('🔴 Audio failed to load:', reason, audio.error);
+  });
+
   playPauseBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     if (isPlaying) {
@@ -110,9 +125,10 @@ if (playPauseBtn && audio) {
     } else {
       audio.play().then(() => {
         setPlaying(true);
-      }).catch(() => {
-        // Autoplay blocked or no network — still show visual
-        setPlaying(true);
+      }).catch((err) => {
+        console.error('🔴 audio.play() rejected:', err.name, err.message);
+        setPlaying(false);
+        alert('Could not play audio: ' + err.message + '\n\nCheck the browser console (F12) for details.');
       });
     }
   });
@@ -187,62 +203,74 @@ const bagVisual = document.getElementById('bagVisual');
 const tools     = document.querySelectorAll('.floating-tool');
 
 function positionTools(active) {
-  tools.forEach((tool) => {
+  const count = tools.length;
+  tools.forEach((tool, index) => {
     if (active) {
-      const angle = parseFloat(tool.dataset.angle) * (Math.PI / 180);
-      const dist  = parseFloat(tool.dataset.dist);
-      // Offset from bag center (bag is centered in the visual)
-      const cx = bagVisual.offsetWidth / 2;
-      const cy = bagVisual.offsetHeight - 100; // near bag top
-      const tx = cx + dist * Math.sin(angle) - tool.offsetWidth / 2;
-      const ty = cy + dist * Math.cos(angle) - tool.offsetHeight / 2;
-      tool.style.left   = tx + 'px';
-      tool.style.top    = ty + 'px';
-      tool.style.bottom = 'auto';
+      // Evenly space tools in a full circle (0° = bottom, 180° = top)
+      const angleDeg = -180 + (360 / count) * index;
+      const angle    = angleDeg * (Math.PI / 180);
+      const dist     = 155 + (index % 3) * 12;
+      const tx       = dist * Math.sin(angle);
+      const ty       = dist * Math.cos(angle);
+      tool.style.setProperty('--tx', `${tx}px`);
+      tool.style.setProperty('--ty', `${ty}px`);
     } else {
-      // Reset to bag origin
-      tool.style.left   = '50%';
-      tool.style.top    = 'auto';
-      tool.style.bottom = '60px';
+      tool.style.setProperty('--tx', '0px');
+      tool.style.setProperty('--ty', '0px');
     }
   });
 }
 
 if (bagVisual) {
-  // Set initial collapsed positions
   positionTools(false);
 
-  bagVisual.addEventListener('mouseenter', () => {
+  const activateBag = () => {
     positionTools(true);
     bagVisual.classList.add('bag-active');
-  });
-  bagVisual.addEventListener('mouseleave', () => {
+  };
+  const deactivateBag = () => {
     bagVisual.classList.remove('bag-active');
     positionTools(false);
-  });
+  };
+
+  const canHover = window.matchMedia('(hover: hover)').matches;
+
+  if (canHover) {
+    bagVisual.addEventListener('mouseenter', activateBag);
+    bagVisual.addEventListener('mouseleave', deactivateBag);
+  } else {
+    bagVisual.addEventListener('click', () => {
+      const isActive = bagVisual.classList.toggle('bag-active');
+      positionTools(isActive);
+    });
+  }
 }
 
 // =========================================
 // ROTARY PHONE DIALER ANIMATION
 // =========================================
+// Works for ANY number of letters — reads the hole count from the DOM
+// instead of a hardcoded "10", so adding/removing letters just works.
 const rotaryDial  = document.getElementById('rotaryDial');
 const rotaryHoles = document.querySelectorAll('.rotary-hole');
 
-if (rotaryDial) {
+if (rotaryDial && rotaryHoles.length) {
+  const holeCount = rotaryHoles.length;
+  const stepDeg   = 360 / holeCount;
+
   rotaryHoles.forEach((hole, idx) => {
     hole.addEventListener('click', () => {
       const letter  = hole.dataset.letter;
-      const degrees = (idx + 1) * (360 / 11) + 40;
+      // Rotate the dial so the clicked hole swings toward the finger-stop,
+      // then springs back — same motion as a real rotary phone.
+      const degrees = (idx + 1) * stepDeg + stepDeg;
 
-      // Spin the whole dial
       rotaryDial.style.transform = `rotate(${degrees}deg)`;
 
-      // Return after animation
       setTimeout(() => {
         rotaryDial.style.transform = 'rotate(0deg)';
       }, 800);
 
-      // Show letter in toast
       showToast(`📞 Dialling "${letter}"...`);
     });
   });

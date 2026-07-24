@@ -780,6 +780,9 @@ nav {
 .floppy-purple { background: #908df2; }
 .floppy-green  { background: #50b890; }
 .floppy-blue   { background: #50a8f2; }
+.floppy-yellow { background: #f2d050; }
+.floppy-teal   { background: #50c8c8; }
+.floppy-pink   { background: #f280b0; }
 
 /* Sticker label */
 .floppy-label {
@@ -1096,10 +1099,12 @@ nav {
 
 .bag-visual {
   position: relative;
-  height: 420px;
+  height: 480px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  --bag-origin-x: 50%;
+  --bag-origin-y: 78%;
 }
 
 /* Premium Leather Bag */
@@ -1182,7 +1187,7 @@ nav {
   height: 20px;
 }
 
-/* Floating Tools — hidden by default, burst out on hover */
+/* Floating Tools — hidden by default, burst out in a circle on hover */
 .floating-tool {
   position: absolute;
   padding: 0.45rem 1rem;
@@ -1193,51 +1198,51 @@ nav {
   font-weight: 700;
   box-shadow: 3px 3px 0px var(--text-dark);
   z-index: 8;
-  /* Collapsed state — sitting in the bag */
-  bottom: 60px;
-  left: 50%;
-  transform: translateX(-50%) scale(0.3);
+  white-space: nowrap;
+  top: var(--bag-origin-y);
+  left: var(--bag-origin-x);
+  --tx: 0px;
+  --ty: 0px;
+  transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0.3);
   opacity: 0;
   pointer-events: none;
   transition:
-    transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-    opacity   0.4s ease,
-    left      0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-    top       0.5s cubic-bezier(0.34, 1.56, 0.64, 1),
-    bottom    0.5s ease;
+    transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity   0.35s ease;
 }
 
-/* Each tool gets its own colour & position when active */
 .bag-visual.bag-active .floating-tool {
   opacity: 1;
   pointer-events: auto;
-  transform: scale(1);
+  transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(1);
   animation: floatTool 3s ease-in-out infinite;
 }
 
-/* Staggered delays */
-.bag-visual.bag-active .tool-1 { transition-delay: 0.00s; }
-.bag-visual.bag-active .tool-2 { transition-delay: 0.06s; }
-.bag-visual.bag-active .tool-3 { transition-delay: 0.12s; }
-.bag-visual.bag-active .tool-4 { transition-delay: 0.18s; }
-.bag-visual.bag-active .tool-5 { transition-delay: 0.24s; }
-.bag-visual.bag-active .tool-6 { transition-delay: 0.30s; }
-.bag-visual.bag-active .tool-7 { transition-delay: 0.36s; }
-.bag-visual.bag-active .tool-8 { transition-delay: 0.42s; }
+.bag-visual.bag-active .tool-1  { transition-delay: 0.00s; animation-delay: 0.00s; }
+.bag-visual.bag-active .tool-2  { transition-delay: 0.05s; animation-delay: 0.05s; }
+.bag-visual.bag-active .tool-3  { transition-delay: 0.10s; animation-delay: 0.10s; }
+.bag-visual.bag-active .tool-4  { transition-delay: 0.15s; animation-delay: 0.15s; }
+.bag-visual.bag-active .tool-5  { transition-delay: 0.20s; animation-delay: 0.20s; }
+.bag-visual.bag-active .tool-6  { transition-delay: 0.25s; animation-delay: 0.25s; }
+.bag-visual.bag-active .tool-7  { transition-delay: 0.30s; animation-delay: 0.30s; }
+.bag-visual.bag-active .tool-8  { transition-delay: 0.35s; animation-delay: 0.35s; }
+.bag-visual.bag-active .tool-9  { transition-delay: 0.40s; animation-delay: 0.40s; }
+.bag-visual.bag-active .tool-10 { transition-delay: 0.45s; animation-delay: 0.45s; }
 
-/* Final burst positions (set via JS from data-angle / data-dist) */
-.tool-1 { background: #fff1f2; }
-.tool-2 { background: #f0fdf4; }
-.tool-3 { background: #eff6ff; }
-.tool-4 { background: #fffbeb; }
-.tool-5 { background: #fdf2f8; }
-.tool-6 { background: #fff7ed; }
-.tool-7 { background: #ecfdf5; }
-.tool-8 { background: #faf5ff; }
+.tool-1  { background: #f0fdf4; }
+.tool-2  { background: #fff1f2; }
+.tool-3  { background: #eff6ff; }
+.tool-4  { background: #fdf2f8; }
+.tool-5  { background: #fffbeb; }
+.tool-6  { background: #ecfeff; }
+.tool-7  { background: #ecfdf5; }
+.tool-8  { background: #f5f3ff; }
+.tool-9  { background: #f0f9ff; }
+.tool-10 { background: #fff7ed; }
 
 @keyframes floatTool {
-  0%, 100% { transform: translateY(0) rotate(2deg) scale(1); }
-  50%       { transform: translateY(-10px) rotate(-2deg) scale(1.03); }
+  0%, 100% { margin-top: 0; }
+  50%       { margin-top: -8px; }
 }
 
 /* =========================================
@@ -1476,129 +1481,230 @@ nav {
   display: flex;
   justify-content: center;
   position: relative;
+  padding: 1rem 0;
 }
 
-/* Vintage Rotary Phone — upgraded */
+/* =========================================
+   ROTARY DIAL — Rebuilt for reliability
+   Structure (bottom to top):
+     1. .rotary-plate       cream base disc
+     2. .rotary-metal-ring  metallic donut band (pure CSS mask, no per-letter math)
+     3. .rotary-holes       letter wells, positioned purely with trig via --i / --step
+     4. .rotary-center      fixed cream hub with name + avatar (always on top, doesn't rotate)
+     5. .rotary-stop        decorative finger-stop wedge
+   Letters spell "SONA ABRAHAM" (11 dial holes).
+   To change the name: edit the --dial-count number below AND add/remove
+   .rotary-hole elements in the HTML (keep --i sequential from 0).
+   ========================================= */
 .rotary-phone {
-  width: 300px;
-  height: 300px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #e8e2d4, #ccc5b0 50%, #b0a890 100%);
-  border: 4px solid #2c2c2c;
-  box-shadow:
-    8px 10px 0px #2c2c2c,
-    inset 0 0 20px rgba(255,255,255,0.15),
-    inset 0 0 40px rgba(0,0,0,0.08);
+  width: 340px;
+  height: 340px;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Dial face */
-.rotary-dial {
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  background: radial-gradient(circle at 40% 40%, #f5f0e8, #e8e0cc 70%);
-  border: 3px solid #2c2c2c;
+.rotary-dial-wrap {
+  width: 340px;
+  height: 340px;
   position: relative;
-  transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
-  box-shadow:
-    inset 0 0 10px rgba(0,0,0,0.12),
-    inset 0 0 3px rgba(255,255,255,0.4);
 }
 
-/* Each dial hole */
-.rotary-hole {
-  width: 32px;
-  height: 32px;
+/* Rotating dial assembly */
+.rotary-dial {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  border: 2.5px solid #2c2c2c;
-  background: radial-gradient(circle at 35% 35%, #f0e8d8, #d4c8b0);
   position: absolute;
+  inset: 0;
+  transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+  z-index: 1;
+}
+
+/* Layer 1 — cream plate underneath everything */
+.rotary-plate {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #fdf8ee, #f0e8da 70%, #e8e0d0 100%);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+  z-index: 1;
+}
+
+/* Layer 2 — metallic ring, drawn as a simple annulus using a CSS mask.
+   This never needs per-hole coordinates, so it can't fall out of sync
+   with the letters no matter how many there are. */
+.rotary-metal-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  z-index: 2;
+  background: radial-gradient(circle at 35% 30%, #e4e0d8 0%, #c8c4bc 45%, #a8a4a0 75%, #989490 100%);
+  -webkit-mask-image: radial-gradient(circle at center,
+      transparent 0, transparent 84px,
+      black 86px, black 168px,
+      transparent 170px, transparent 100%);
+  mask-image: radial-gradient(circle at center,
+      transparent 0, transparent 84px,
+      black 86px, black 168px,
+      transparent 170px, transparent 100%);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+/* Layer 3 — letter wells, evenly spaced by pure trig (works for ANY letter count) */
+.rotary-holes {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  /* number of letters currently dialled — keep in sync with the HTML */
+  --dial-count: 11;
+  --step: calc(360deg / var(--dial-count));
+}
+
+.rotary-hole {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  background: radial-gradient(circle at 38% 32%, #fdf8ee, #ede6d8 65%, #e0d8c8 100%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: var(--transition);
+  transition: background 0.2s, box-shadow 0.2s;
   box-shadow:
-    inset 0 2px 4px rgba(0,0,0,0.2),
-    2px 2px 0px rgba(0,0,0,0.15);
+    inset 0 3px 6px rgba(255,255,255,0.8),
+    inset 0 -4px 8px rgba(0,0,0,0.07),
+    0 2px 5px rgba(0,0,0,0.15);
+  /* placed at angle (180deg + i*step) from top, radius 118px from centre —
+     matches the exact centre used by .rotary-metal-ring's mask (radius 118 sits
+     inside the 86–168px metal band) so the hole always shows fully cut through */
+  transform:
+    translate(-50%, -50%)
+    rotate(calc(180deg + (var(--i)) * var(--step)))
+    translateY(-118px)
+    rotate(calc(-180deg - (var(--i)) * var(--step)));
 }
+
 .rotary-hole:hover {
-  background: radial-gradient(circle at 35% 35%, #908df2, #7a26f0);
-  border-color: #5a00d0;
+  background: radial-gradient(circle at 38% 32%, #c4b8f8, #7a26f0 70%);
+  box-shadow:
+    inset 0 2px 5px rgba(255,255,255,0.4),
+    0 0 0 3px rgba(122,38,240,0.25);
 }
+
 .rotary-hole:hover span {
-  color: white;
+  color: #fff;
 }
+
 .rotary-hole span {
-  font-family: var(--mono);
-  font-size: 0.62rem;
-  font-weight: 900;
-  color: #3a3020;
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1a1a1a;
   pointer-events: none;
-  letter-spacing: 0;
+  line-height: 1;
   transition: color 0.2s;
 }
 
-/*
-  11 holes for SONA ABRAHAM, evenly spaced around the dial.
-  Radius from center ≈ 82px. Center of dial is 110px,110px.
-  Angles: 360/11 ≈ 32.7deg per step, starting at -90deg (top).
-  hole-0 → S,  hole-1 → O,  hole-2 → N,  hole-3 → A,
-  hole-4 → A,  hole-5 → B,  hole-6 → R,  hole-7 → A,
-  hole-8 → H,  hole-9 → A,  hole-10 → M
-  top/left = center(110) + radius*sin/cos - halfWidth(16)
-*/
-.rotary-hole:nth-child(1)  { top:  12px; left:  94px; } /* S  — top     */
-.rotary-hole:nth-child(2)  { top:  24px; left: 144px; } /* O  — top-right  */
-.rotary-hole:nth-child(3)  { top:  57px; left: 180px; } /* N  */
-.rotary-hole:nth-child(4)  { top: 103px; left: 190px; } /* A  — right  */
-.rotary-hole:nth-child(5)  { top: 150px; left: 175px; } /* A  */
-.rotary-hole:nth-child(6)  { top: 185px; left: 143px; } /* B  — bottom-right */
-.rotary-hole:nth-child(7)  { top: 196px; left:  94px; } /* R  — bottom */
-.rotary-hole:nth-child(8)  { top: 185px; left:  46px; } /* A  — bottom-left */
-.rotary-hole:nth-child(9)  { top: 150px; left:  14px; } /* H  */
-.rotary-hole:nth-child(10) { top: 103px; left:   0px; } /* A  — left */
-.rotary-hole:nth-child(11) { top:  57px; left:  12px; } /* M  */
-
-/* Centre label */
+/* Fixed cream center hub — sits above the rotating dial, never rotates */
 .rotary-center {
-  width: 70px;
-  height: 70px;
+  width: 172px;
+  height: 172px;
   border-radius: 50%;
-  background: radial-gradient(circle at 40% 40%, #a89aef, #7a26f0);
-  border: 3px solid #2c2c2c;
+  background: radial-gradient(circle at 40% 35%, #fdf8ee, #f0e8da 70%, #e8e0d0 100%);
   position: absolute;
-  top: 50%; left: 50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-family: var(--mono);
-  font-size: 0.58rem;
-  font-weight: 900;
   text-align: center;
-  color: white;
-  z-index: 5;
+  z-index: 10;
   box-shadow:
-    inset 0 2px 6px rgba(255,255,255,0.25),
-    0 4px 8px rgba(0,0,0,0.3);
-  letter-spacing: 0.05em;
+    inset 0 2px 8px rgba(255,255,255,0.7),
+    inset 0 -2px 6px rgba(0,0,0,0.06),
+    0 0 0 4px rgba(168,164,160,0.35),
+    0 4px 14px rgba(0,0,0,0.1);
+  gap: 0.1rem;
+  padding-top: 0.4rem;
 }
 
-/* Finger stop guard */
+.rotary-center-line {
+  font-family: var(--sans);
+  font-size: 0.56rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #2c2c2c;
+  line-height: 1.3;
+}
+
+.rotary-center-name {
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #6a45b1;
+  line-height: 1.25;
+  margin: 0.05rem 0;
+}
+
+.rotary-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-top: 0.3rem;
+  border: 2px solid rgba(106,69,177,0.25);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Metallic finger stop */
 .rotary-stop {
   position: absolute;
-  bottom: 8px;
-  right: 16px;
+  bottom: 22px;
+  right: 34px;
+  width: 38px;
+  height: 52px;
+  z-index: 12;
+  pointer-events: none;
+}
+
+.rotary-stop::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 22px;
+  height: 44px;
+  background: linear-gradient(160deg, #d8d4cc 0%, #a8a4a0 45%, #989490 100%);
+  border-radius: 4px 10px 10px 4px;
+  box-shadow:
+    inset 1px 1px 3px rgba(255,255,255,0.45),
+    inset -1px -2px 4px rgba(0,0,0,0.15),
+    2px 3px 6px rgba(0,0,0,0.18);
+}
+
+.rotary-stop::after {
+  content: '';
+  position: absolute;
+  bottom: 30px;
+  right: 14px;
   width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: #2c2c2c;
-  box-shadow: inset 0 2px 4px rgba(255,255,255,0.1);
+  height: 18px;
+  background: linear-gradient(135deg, #ccc8c0, #a0a09a);
+  border-radius: 0 14px 0 0;
+  box-shadow:
+    inset 0 1px 2px rgba(255,255,255,0.4),
+    1px 2px 4px rgba(0,0,0,0.12);
 }
 
 /* Postage Stamps (Social Links) */
@@ -1814,6 +1920,44 @@ footer {
   .contact-grid {
     grid-template-columns: 1fr;
     gap: 4rem;
+  }
+  .rotary-phone,
+  .rotary-dial-wrap {
+    width: 300px;
+    height: 300px;
+  }
+  .rotary-hole {
+    width: 46px;
+    height: 46px;
+    transform:
+      translate(-50%, -50%)
+      rotate(calc(180deg + (var(--i)) * var(--step)))
+      translateY(-104px)
+      rotate(calc(-180deg - (var(--i)) * var(--step)));
+  }
+  .rotary-hole span {
+    font-size: 1rem;
+  }
+  .rotary-metal-ring {
+    -webkit-mask-image: radial-gradient(circle at center,
+        transparent 0, transparent 72px,
+        black 74px, black 148px,
+        transparent 150px, transparent 100%);
+    mask-image: radial-gradient(circle at center,
+        transparent 0, transparent 72px,
+        black 74px, black 148px,
+        transparent 150px, transparent 100%);
+  }
+  .rotary-center {
+    width: 148px;
+    height: 148px;
+  }
+  .rotary-center-name {
+    font-size: 0.8rem;
+  }
+  .rotary-stop {
+    bottom: 18px;
+    right: 28px;
   }
 }
 
